@@ -1,0 +1,2 @@
+# store
+Guild Glory Store
