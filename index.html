@@ -3,171 +3,124 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SURAJ X FLUxGAMER | Premium Shop</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<title>SURAJ X FLUxGAMER • Guild Glory Store</title>
 
 <style>
-:root{
-  --accent:#00f7ff;
-  --accent2:#00ff99;
-}
-*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif}
-
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,Arial,sans-serif}
 body{
   min-height:100vh;
-  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-  color:#fff;
+  background:linear-gradient(135deg,#16222a,#3a6073);
   display:flex;
   justify-content:center;
+  align-items:center;
   padding:20px;
+  color:#fff;
 }
-
 .container{
   width:100%;
-  max-width:1100px;
-  background:rgba(255,255,255,.08);
-  border-radius:30px;
-  padding:35px;
-  backdrop-filter:blur(20px);
-  box-shadow:0 40px 90px rgba(0,0,0,.6);
+  max-width:460px;
+  background:rgba(0,0,0,.55);
+  border-radius:22px;
+  padding:22px;
+  box-shadow:0 0 35px rgba(0,255,200,.3);
+  backdrop-filter:blur(12px);
+}
+.header{text-align:center;margin-bottom:16px}
+.header img{width:90px;border-radius:14px;margin-bottom:8px}
+.header h1{font-size:1.5rem;color:#00ffd5}
+.header p{font-size:.85rem;opacity:.85}
+
+.section-title{
+  margin:14px 0 10px;
+  font-size:1.1rem;
+  color:#00ffd5;
 }
 
-/* HEADER */
-.header{
+.card{
+  background:rgba(255,255,255,.08);
+  border-radius:16px;
+  padding:14px;
+  margin-bottom:10px;
   display:flex;
+  justify-content:space-between;
   align-items:center;
-  gap:16px;
-  margin-bottom:25px;
 }
-.header img{width:75px;border-radius:18px}
-.header h1{
-  font-size:2.2rem;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
-.header p{opacity:.8;font-size:.85rem}
-
-@media(max-width:600px){
-  .header{flex-direction:column;text-align:center}
-}
-
-/* STATUS */
-.status{
-  display:inline-block;
-  padding:6px 14px;
-  border-radius:20px;
-  background:rgba(0,255,150,.2);
-  color:#00ff99;
-  font-size:.8rem;
-  margin-bottom:25px;
-}
-
-/* SHOP */
-.shop{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-  gap:22px;
-}
-.product{
-  background:linear-gradient(180deg,rgba(255,255,255,.15),rgba(0,0,0,.35));
-  border-radius:24px;
-  padding:26px;
-  border:1px solid rgba(255,255,255,.18);
-  transition:.4s;
-}
-.product:hover{
-  transform:translateY(-8px);
-  box-shadow:0 25px 60px rgba(0,255,200,.25);
-}
-.product h3{font-size:1.3rem}
-.product span{font-size:.85rem;opacity:.75}
-.price{
-  margin:16px 0;
-  font-size:1.5rem;
-  font-weight:700;
-  color:var(--accent2);
-}
+.card h3{font-size:.95rem}
+.price{color:#00ffd5;font-weight:bold;font-size:.9rem}
 .buy{
-  width:100%;
-  padding:14px;
-  border-radius:16px;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  padding:7px 14px;
   border:none;
-  font-weight:700;
+  border-radius:12px;
+  background:linear-gradient(135deg,#00ffd5,#00b3ff);
+  color:#000;
+  font-weight:bold;
   cursor:pointer;
 }
+.buy:hover{box-shadow:0 0 12px #00ffd5}
 
-/* PAYMENT */
-.payment{
+#payBox{
   display:none;
-  margin-top:45px;
-  background:rgba(0,0,0,.45);
-  padding:28px;
-  border-radius:26px;
-}
-.payment.show{display:block;animation:fade .35s}
-@keyframes fade{from{opacity:0;transform:translateY(20px)}}
-
-/* STEPS (NEW) */
-.steps{
-  background:rgba(255,255,255,.08);
+  margin-top:18px;
+  background:rgba(0,0,0,.6);
   padding:16px;
   border-radius:18px;
-  margin:15px 0;
-  font-size:.85rem;
-  line-height:1.6;
+  text-align:center;
 }
+#payBox.show{display:block}
 
-/* ORDER */
-.order-card{
-  background:rgba(255,255,255,.08);
-  padding:16px;
-  border-radius:18px;
-  margin:15px 0;
-}
-
-/* QR */
-.payment img{
+#payBox img{
   width:220px;
-  border-radius:18px;
-  margin:18px auto;
-  display:block;
-}
-
-/* BUTTON FIX (IMPORTANT) */
-.actions{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-  margin-top:10px;
-}
-.actions .btn{
-  width:100%;
-  padding:14px;
-  border-radius:16px;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  border:none;
-  cursor:pointer;
-  font-weight:700;
-  text-align:center;
-  text-decoration:none;
-  color:#003b44;
-}
-
-/* SUCCESS */
-.success{
-  display:none;
-  margin-top:15px;
-  padding:14px;
   border-radius:14px;
-  background:rgba(0,255,180,.18);
+  margin:12px 0;
+}
+
+.upi{
+  font-size:.9rem;
+  margin-bottom:6px;
+  color:#00ffd5;
+  word-break:break-all;
+}
+
+.info{font-size:.9rem;margin-bottom:8px}
+
+.btn{
+  width:100%;
+  margin-top:8px;
+  padding:11px;
+  border:none;
+  border-radius:14px;
+  background:linear-gradient(135deg,#00ffd5,#00b3ff);
+  color:#000;
+  font-weight:bold;
+  cursor:pointer;
+}
+.btn.alt{
+  background:transparent;
+  color:#00ffd5;
+  border:2px solid #00ffd5;
+}
+.btn:hover{box-shadow:0 0 12px #00ffd5}
+
+.link{
+  display:block;
+  margin-top:10px;
   text-align:center;
+  color:#00ffd5;
+  font-size:.9rem;
+  text-decoration:none;
+}
+
+#success{
+  display:none;
+  margin-top:10px;
+  padding:12px;
+  border-radius:14px;
+  background:rgba(0,255,200,.18);
+  color:#00ffd5;
 }
 
 footer{
-  margin-top:40px;
+  margin-top:14px;
   text-align:center;
   font-size:.75rem;
   opacity:.6;
@@ -177,113 +130,85 @@ footer{
 
 <body>
 
-<audio id="buySound" src="https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3"></audio>
-
 <div class="container">
 
-<div class="header">
-  <img src="images/your-logo.png">
-  <div>
+  <div class="header">
+    <img src="images/your-logo.png">
     <h1>SURAJ X FLUxGAMER</h1>
-    <p>Premium Guild Glory Store</p>
-  </div>
-</div>
-
-<div class="status">🟢 ONLINE • Instant Support</div>
-
-<div class="shop">
-  <div class="product">
-    <h3>100K GLORY</h3>
-    <span>Instant delivery</span>
-    <div class="price">₹300</div>
-    <button class="buy">BUY NOW</button>
+    <p>💎⚡ GUILD GLORY BOT AVAILABLE ✅<br>
+    DM FOR BUY CREDIT & GLORY<br>
+    <b>@surajxmodz</b></p>
   </div>
 
-  <div class="product">
-    <h3>300K GLORY</h3>
-    <span>Fast delivery</span>
-    <div class="price">₹700</div>
-    <button class="buy">BUY NOW</button>
+  <div class="section-title">👑 GLORY PRICES</div>
+
+  <div class="card"><h3>100K GLORY</h3><div><div class="price">₹300</div><button class="buy">BUY</button></div></div>
+  <div class="card"><h3>200K GLORY</h3><div><div class="price">₹550</div><button class="buy">BUY</button></div></div>
+  <div class="card"><h3>300K GLORY</h3><div><div class="price">₹700</div><button class="buy">BUY</button></div></div>
+  <div class="card"><h3>400K GLORY</h3><div><div class="price">₹900</div><button class="buy">BUY</button></div></div>
+  <div class="card"><h3>500K GLORY</h3><div><div class="price">₹1100</div><button class="buy">BUY</button></div></div>
+  <div class="card"><h3>1 TO 7 LEVEL</h3><div><div class="price">₹1500</div><button class="buy">BUY</button></div></div>
+
+  <div id="payBox">
+    <div class="info" id="orderText"></div>
+    <img src="images/your-qr.png">
+    <div class="upi">UPI ID: <b>9045657367@fam</b></div>
+
+    <button class="btn" onclick="copyPay()">📋 COPY PAYMENT DETAILS</button>
+    <a id="tgBtn" target="_blank"><button class="btn alt">📨 SEND DETAILS ON TELEGRAM</button></a>
+    <button class="btn" onclick="done()">✅ I HAVE PAID</button>
+
+    <div id="success">✅ Payment details sent</div>
+
+    <a class="link" href="https://t.me/payment_proof_162" target="_blank">
+      💎 PAYMENT PROOFS
+    </a>
   </div>
 
-  <div class="product">
-    <h3>500K GLORY</h3>
-    <span>Priority service</span>
-    <div class="price">₹1100</div>
-    <button class="buy">BUY NOW</button>
-  </div>
-</div>
-
-<div class="payment" id="payBox">
-  <h3>Complete Payment</h3>
-  <p id="orderText"></p>
-
-  <div class="steps">
-    1️⃣ Select Plan<br>
-    2️⃣ Pay via QR<br>
-    3️⃣ Send Code on Telegram<br>
-    4️⃣ Done ✅
-  </div>
-
-  <div class="order-card" id="summary"></div>
-
-  <img src="images/your-qr.png">
-
-  <div class="actions">
-    <button class="btn" onclick="copyPay()">COPY PAYMENT CODE</button>
-    <a id="tgBtn" class="btn" target="_blank">SEND CODE ON TELEGRAM</a>
-    <button class="btn" onclick="done()">I HAVE PAID</button>
-  </div>
-
-  <div class="success" id="success">
-    ✅ Payment marked. Please wait for confirmation.
-  </div>
-</div>
-
-<footer>
-© 2026 SURAJ X FLUxGAMER • Official Store
-</footer>
+  <footer>© 2026 SURAJ X FLUxGAMER</footer>
 
 </div>
 
 <script>
-let plan="",price="",payCode="";
-const sound=document.getElementById("buySound");
-const payBox=document.getElementById("payBox");
+let locked=false;
+let payCode="",orderId="",plan="",price="";
+const UPI="9045657367@fam";
 
 document.querySelectorAll(".buy").forEach(btn=>{
   btn.onclick=()=>{
-    sound.play();
-    const p=btn.parentElement;
-    plan=p.querySelector("h3").innerText;
-    price=p.querySelector(".price").innerText;
+    if(locked){
+      document.getElementById("payBox").scrollIntoView({behavior:"smooth"});
+      return;
+    }
+    const card=btn.closest(".card");
+    plan=card.querySelector("h3").innerText;
+    price=card.querySelector(".price").innerText;
 
-    const orderId="GX-"+Math.floor(100000+Math.random()*900000);
+    orderId="GX-"+Math.floor(100000+Math.random()*900000);
     payCode="PAY-"+Math.random().toString(36).substring(2,8).toUpperCase();
+    locked=true;
 
-    orderText.innerHTML=
-      `<b>Order ID:</b> ${orderId}<br>
-       <b>Payment Code:</b> <span style="color:#00ff99">${payCode}</span>`;
+    document.getElementById("orderText").innerHTML=
+      `Order ID: <b>${orderId}</b><br>
+       Plan: <b>${plan}</b><br>
+       Amount: <b>${price}</b><br>
+       Code: <b style="color:#00ffd5">${payCode}</b>`;
 
-    summary.innerHTML=
-      `Plan: <b>${plan}</b><br>
-       Price: <b>${price}</b><br>
-       Code: <b style="color:#00ff99">${payCode}</b>`;
+    document.getElementById("tgBtn").href=
+      `https://t.me/surajxmodz?text=NEW%20PAYMENT%0AORDER:%20${orderId}%0APLAN:%20${plan}%0APRICE:%20${price}%0ACODE:%20${payCode}%0AUPI:%20${UPI}`;
 
-    tgBtn.href=
-`https://t.me/surajxmodz?text=NEW%20PAYMENT%0AORDER:%20${orderId}%0APLAN:%20${plan}%0APRICE:%20${price}%0ACODE:%20${payCode}`;
-
-    payBox.classList.add("show");
-    payBox.scrollIntoView({behavior:"smooth"});
+    document.getElementById("payBox").classList.add("show");
+    document.getElementById("payBox").scrollIntoView({behavior:"smooth"});
   };
 });
 
 function copyPay(){
-  navigator.clipboard.writeText(payCode);
-  alert("Payment code copied");
+  navigator.clipboard.writeText(`UPI: ${UPI}\nCODE: ${payCode}`);
+  alert("Payment details copied");
 }
+
 function done(){
-  success.style.display="block";
+  document.getElementById("success").style.display="block";
 }
 </script>
 
