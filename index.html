@@ -3,349 +3,287 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SURAJ X FLUxGAMER | Premium Guild Store</title>
+<title>SURAJ X FLUxGAMER | Premium Shop</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
-
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Poppins',sans-serif;
+:root{
+  --accent:#00f7ff;
+  --accent2:#00ff99;
 }
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif}
 
 body{
   min-height:100vh;
-  background:
-    radial-gradient(circle at top, #00f7ff33, transparent 40%),
-    linear-gradient(-45deg,#020024,#050b3a,#001a2d,#000);
-  background-size:400% 400%;
-  animation:bg 12s ease infinite;
+  background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
   color:#fff;
   display:flex;
   justify-content:center;
-  align-items:center;
-  padding:25px;
+  padding:20px;
 }
 
-@keyframes bg{
-  0%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-  100%{background-position:0% 50%}
-}
-
-/* MAIN CONTAINER */
 .container{
   width:100%;
-  max-width:980px;
-  padding:35px;
-  border-radius:26px;
+  max-width:1100px;
   background:rgba(255,255,255,.08);
-  backdrop-filter:blur(18px);
-  box-shadow:
-    0 0 50px rgba(0,255,255,.35),
-    inset 0 0 40px rgba(255,255,255,.05);
-  border:1px solid rgba(255,255,255,.15);
+  border-radius:30px;
+  padding:35px;
+  backdrop-filter:blur(20px);
+  box-shadow:0 40px 90px rgba(0,0,0,.6);
 }
 
 /* HEADER */
 .header{
-  text-align:center;
-  margin-bottom:35px;
+  display:flex;
+  align-items:center;
+  gap:16px;
+  margin-bottom:25px;
 }
-.header img{
-  width:130px;
-  border-radius:22px;
-  margin-bottom:15px;
-  box-shadow:0 0 20px #00f7ff;
-}
+.header img{width:75px;border-radius:18px}
 .header h1{
-  font-size:2.8rem;
-  background:linear-gradient(135deg,#00f7ff,#4facfe);
+  font-size:2.2rem;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
 }
-.header p{
-  opacity:.85;
-  margin-top:6px;
+.header p{opacity:.8;font-size:.85rem}
+
+@media(max-width:600px){
+  .header{flex-direction:column;text-align:center}
 }
 
-/* SECTION */
-.section{
-  margin-bottom:35px;
-}
-.section h2{
-  font-size:1.7rem;
-  margin-bottom:18px;
-  display:flex;
-  align-items:center;
-  gap:10px;
-  color:#00ffcc;
-}
-
-/* PRICE CARDS */
-.prices{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:18px;
-}
-
-.card{
-  padding:22px;
-  border-radius:22px;
-  background:linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,.02));
-  text-align:center;
-  cursor:pointer;
-  transition:.35s;
-  border:1px solid rgba(255,255,255,.18);
-  position:relative;
-  overflow:hidden;
-}
-
-.card::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(120deg,transparent,#00f7ff55,transparent);
-  opacity:0;
-  transition:.4s;
-}
-
-.card:hover::before{opacity:1}
-.card:hover{transform:translateY(-6px) scale(1.03)}
-
-.card.active{
-  border-color:#00ffcc;
-  box-shadow:0 0 25px #00ffcc;
-}
-
-.card h3{
-  color:#00f7ff;
-  font-size:1.3rem;
-  margin-bottom:8px;
-}
-.card p{opacity:.85}
-
-/* PAYMENT TOGGLE */
-.toggle-box{
-  padding:22px;
-  border-radius:24px;
-  background:rgba(0,0,0,.55);
-  border:1px solid rgba(255,255,255,.15);
-}
-
-.toggle{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  font-size:1.1rem;
-}
-
-/* PREMIUM SWITCH */
-.switch{
-  position:relative;
-  width:64px;
-  height:34px;
-}
-.switch input{display:none}
-
-.slider{
-  position:absolute;
-  inset:0;
-  border-radius:40px;
-  background:#444;
-  transition:.4s;
-  box-shadow:inset 0 0 10px rgba(0,0,0,.8);
-}
-.slider::before{
-  content:"";
-  position:absolute;
-  width:26px;
-  height:26px;
-  left:4px;
-  top:4px;
-  border-radius:50%;
-  background:linear-gradient(135deg,#fff,#ccc);
-  transition:.4s;
-}
-
-input:checked + .slider{
-  background:linear-gradient(135deg,#00f7ff,#00ffcc);
-  box-shadow:0 0 15px #00ffcc;
-}
-input:checked + .slider::before{
-  transform:translateX(30px);
-}
-
-/* QR BOX */
-.qr-box{
-  display:none;
-  margin-top:25px;
-  padding:25px;
-  border-radius:24px;
-  text-align:center;
-  background:rgba(0,0,0,.7);
-  box-shadow:0 0 30px rgba(0,255,255,.35);
-}
-
-.qr-box img{
-  width:230px;
-  border-radius:18px;
-  margin:18px 0;
-  box-shadow:0 0 25px #00f7ff;
-}
-
-/* BUTTONS */
-.btn{
+/* STATUS */
+.status{
   display:inline-block;
-  margin-top:14px;
-  padding:14px 24px;
-  border-radius:16px;
-  background:linear-gradient(135deg,#00f7ff,#0066ff);
-  color:#fff;
-  font-weight:600;
-  text-decoration:none;
-  cursor:pointer;
-  transition:.3s;
-  border:none;
+  padding:6px 14px;
+  border-radius:20px;
+  background:rgba(0,255,150,.2);
+  color:#00ff99;
+  font-size:.8rem;
+  margin-bottom:25px;
 }
-.btn:hover{
-  transform:translateY(-2px);
-  box-shadow:0 0 18px #00f7ff;
+
+/* SHOP */
+.shop{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:22px;
+}
+.product{
+  background:linear-gradient(180deg,rgba(255,255,255,.15),rgba(0,0,0,.35));
+  border-radius:24px;
+  padding:26px;
+  border:1px solid rgba(255,255,255,.18);
+  transition:.4s;
+}
+.product:hover{
+  transform:translateY(-8px);
+  box-shadow:0 25px 60px rgba(0,255,200,.25);
+}
+.product h3{font-size:1.3rem}
+.product span{font-size:.85rem;opacity:.75}
+.price{
+  margin:16px 0;
+  font-size:1.5rem;
+  font-weight:700;
+  color:var(--accent2);
+}
+.buy{
+  width:100%;
+  padding:14px;
+  border-radius:16px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  border:none;
+  font-weight:700;
+  cursor:pointer;
+}
+
+/* PAYMENT */
+.payment{
+  display:none;
+  margin-top:45px;
+  background:rgba(0,0,0,.45);
+  padding:28px;
+  border-radius:26px;
+}
+.payment.show{display:block;animation:fade .35s}
+@keyframes fade{from{opacity:0;transform:translateY(20px)}}
+
+/* STEPS (NEW) */
+.steps{
+  background:rgba(255,255,255,.08);
+  padding:16px;
+  border-radius:18px;
+  margin:15px 0;
+  font-size:.85rem;
+  line-height:1.6;
+}
+
+/* ORDER */
+.order-card{
+  background:rgba(255,255,255,.08);
+  padding:16px;
+  border-radius:18px;
+  margin:15px 0;
+}
+
+/* QR */
+.payment img{
+  width:220px;
+  border-radius:18px;
+  margin:18px auto;
+  display:block;
+}
+
+/* BUTTON FIX (IMPORTANT) */
+.actions{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  margin-top:10px;
+}
+.actions .btn{
+  width:100%;
+  padding:14px;
+  border-radius:16px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  border:none;
+  cursor:pointer;
+  font-weight:700;
+  text-align:center;
+  text-decoration:none;
+  color:#003b44;
 }
 
 /* SUCCESS */
 .success{
   display:none;
-  margin-top:22px;
-  padding:22px;
-  border-radius:20px;
-  background:rgba(0,255,200,.18);
-  box-shadow:0 0 30px #00ffcc;
-}
-
-/* LINKS */
-.links a{
-  display:block;
+  margin-top:15px;
   padding:14px;
-  margin-bottom:12px;
-  border-radius:16px;
+  border-radius:14px;
+  background:rgba(0,255,180,.18);
   text-align:center;
-  background:linear-gradient(135deg,#00f7ff,#0066ff);
-  font-weight:600;
-  text-decoration:none;
-  color:#fff;
-  transition:.3s;
 }
-.links a:hover{transform:scale(1.04)}
 
 footer{
+  margin-top:40px;
   text-align:center;
-  opacity:.65;
-  font-size:.85rem;
+  font-size:.75rem;
+  opacity:.6;
 }
-footer span{color:#00f7ff}
 </style>
 </head>
 
 <body>
 
+<audio id="buySound" src="https://assets.mixkit.co/sfx/preview/mixkit-select-click-1109.mp3"></audio>
+
 <div class="container">
 
 <div class="header">
   <img src="images/your-logo.png">
-  <h1>SURAJ X FLUxGAMER</h1>
-  <p>💎⚡ Premium Guild Glory Services</p>
+  <div>
+    <h1>SURAJ X FLUxGAMER</h1>
+    <p>Premium Guild Glory Store</p>
+  </div>
 </div>
 
-<div class="section">
-<h2>👑 GLORY PRICES</h2>
-<div class="prices">
-  <div class="card" data-plan="100K GLORY - ₹300"><h3>100K GLORY</h3><p>₹300</p></div>
-  <div class="card" data-plan="200K GLORY - ₹550"><h3>200K GLORY</h3><p>₹550</p></div>
-  <div class="card" data-plan="300K GLORY - ₹700"><h3>300K GLORY</h3><p>₹700</p></div>
-  <div class="card" data-plan="400K GLORY - ₹900"><h3>400K GLORY</h3><p>₹900</p></div>
-  <div class="card" data-plan="500K GLORY - ₹1100"><h3>500K GLORY</h3><p>₹1100</p></div>
-  <div class="card" data-plan="1–7 LEVEL - ₹1500"><h3>1–7 LEVEL</h3><p>₹1500</p></div>
-</div>
-</div>
+<div class="status">🟢 ONLINE • Instant Support</div>
 
-<div class="toggle-box">
-<div class="toggle">
-<span>Enable Secure Payment</span>
-<label class="switch">
-<input type="checkbox" id="payToggle">
-<span class="slider"></span>
-</label>
-</div>
+<div class="shop">
+  <div class="product">
+    <h3>100K GLORY</h3>
+    <span>Instant delivery</span>
+    <div class="price">₹300</div>
+    <button class="buy">BUY NOW</button>
+  </div>
 
-<div class="qr-box" id="qrBox">
-<img src="images/your-qr.png">
-<p id="orderText"></p>
+  <div class="product">
+    <h3>300K GLORY</h3>
+    <span>Fast delivery</span>
+    <div class="price">₹700</div>
+    <button class="buy">BUY NOW</button>
+  </div>
 
-<button class="btn" onclick="copyUPI()">📋 COPY PAYMENT INFO</button><br>
-
-<a id="tgBtn" class="btn" target="_blank">✅ PAYMENT DONE – CONTACT TELEGRAM</a>
-
-<button class="btn" onclick="showSuccess()">💚 I HAVE PAID</button>
+  <div class="product">
+    <h3>500K GLORY</h3>
+    <span>Priority service</span>
+    <div class="price">₹1100</div>
+    <button class="buy">BUY NOW</button>
+  </div>
 </div>
 
-<div class="success" id="successBox">
-<h3>✅ Payment Received</h3>
-<p>Our team will contact you shortly on Telegram.</p>
-</div>
-</div>
+<div class="payment" id="payBox">
+  <h3>Complete Payment</h3>
+  <p id="orderText"></p>
 
-<div class="section">
-<h2>🔗 LINKS</h2>
-<div class="links">
-<a href="https://t.me/payment_proof_162" target="_blank">📸 PAYMENT PROOFS</a>
-<a href="https://t.me/FLUxGAMER1" target="_blank">👑 CONTACT OWNER</a>
-</div>
+  <div class="steps">
+    1️⃣ Select Plan<br>
+    2️⃣ Pay via QR<br>
+    3️⃣ Send Code on Telegram<br>
+    4️⃣ Done ✅
+  </div>
+
+  <div class="order-card" id="summary"></div>
+
+  <img src="images/your-qr.png">
+
+  <div class="actions">
+    <button class="btn" onclick="copyPay()">COPY PAYMENT CODE</button>
+    <a id="tgBtn" class="btn" target="_blank">SEND CODE ON TELEGRAM</a>
+    <button class="btn" onclick="done()">I HAVE PAID</button>
+  </div>
+
+  <div class="success" id="success">
+    ✅ Payment marked. Please wait for confirmation.
+  </div>
 </div>
 
 <footer>
-© 2026 <span>SURAJ X FLUxGAMER</span>
+© 2026 SURAJ X FLUxGAMER • Official Store
 </footer>
 
 </div>
 
 <script>
-let selectedPlan="Not Selected";
+let plan="",price="",payCode="";
+const sound=document.getElementById("buySound");
+const payBox=document.getElementById("payBox");
 
-document.querySelectorAll(".card").forEach(card=>{
-  card.onclick=()=>{
-    document.querySelectorAll(".card").forEach(c=>c.classList.remove("active"));
-    card.classList.add("active");
-    selectedPlan=card.dataset.plan;
-  }
+document.querySelectorAll(".buy").forEach(btn=>{
+  btn.onclick=()=>{
+    sound.play();
+    const p=btn.parentElement;
+    plan=p.querySelector("h3").innerText;
+    price=p.querySelector(".price").innerText;
+
+    const orderId="GX-"+Math.floor(100000+Math.random()*900000);
+    payCode="PAY-"+Math.random().toString(36).substring(2,8).toUpperCase();
+
+    orderText.innerHTML=
+      `<b>Order ID:</b> ${orderId}<br>
+       <b>Payment Code:</b> <span style="color:#00ff99">${payCode}</span>`;
+
+    summary.innerHTML=
+      `Plan: <b>${plan}</b><br>
+       Price: <b>${price}</b><br>
+       Code: <b style="color:#00ff99">${payCode}</b>`;
+
+    tgBtn.href=
+`https://t.me/surajxmodz?text=NEW%20PAYMENT%0AORDER:%20${orderId}%0APLAN:%20${plan}%0APRICE:%20${price}%0ACODE:%20${payCode}`;
+
+    payBox.classList.add("show");
+    payBox.scrollIntoView({behavior:"smooth"});
+  };
 });
 
-const toggle=document.getElementById("payToggle");
-const qr=document.getElementById("qrBox");
-const orderText=document.getElementById("orderText");
-const tgBtn=document.getElementById("tgBtn");
-
-toggle.onchange=()=>{
-  if(toggle.checked){
-    const orderID="GX-"+Math.floor(Math.random()*999999);
-    orderText.innerHTML=`<b>Order ID:</b> ${orderID}<br><b>Plan:</b> ${selectedPlan}`;
-    tgBtn.href=`https://t.me/surajxmodz?text=ORDER%20ID:%20${orderID}%0APLAN:%20${selectedPlan}`;
-    qr.style.display="block";
-    qr.scrollIntoView({behavior:"smooth"});
-  }else{
-    qr.style.display="none";
-  }
+function copyPay(){
+  navigator.clipboard.writeText(payCode);
+  alert("Payment code copied");
 }
-
-function copyUPI(){
-  navigator.clipboard.writeText("PAY FOR: "+selectedPlan);
-  alert("Payment info copied!");
-}
-
-function showSuccess(){
-  document.getElementById("successBox").style.display="block";
+function done(){
+  success.style.display="block";
 }
 </script>
 
