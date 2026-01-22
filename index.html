@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SURAJ X FLUxGAMER | Guild Glory Store</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
+body{
+  min-height:100vh;
+  background:linear-gradient(-45deg,#020024,#090979,#00d4ff,#000);
+  background-size:400% 400%;
+  animation:bg 10s ease infinite;
+  color:#fff;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+}
+@keyframes bg{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+.container{
+  width:100%;
+  max-width:950px;
+  background:rgba(0,0,0,.65);
+  border-radius:22px;
+  padding:30px;
+  box-shadow:0 0 40px rgba(0,255,255,.4);
+  backdrop-filter:blur(12px);
+}
+
+.header{text-align:center;margin-bottom:30px}
+.header img{width:120px;border-radius:18px;margin-bottom:15px}
+.header h1{color:#00f7ff;font-size:2.6rem}
+.header p{opacity:.85}
+
+.section{margin-bottom:30px}
+.section h2{
+  color:#00ffcc;
+  font-size:1.6rem;
+  margin-bottom:15px;
+  border-left:4px solid #00ffcc;
+  padding-left:10px;
+}
+
+/* PRICE CARDS */
+.prices{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:15px;
+}
+.card{
+  padding:18px;
+  border-radius:18px;
+  background:rgba(255,255,255,.08);
+  cursor:pointer;
+  transition:.3s;
+  border:2px solid transparent;
+}
+.card:hover{transform:scale(1.05)}
+.card.active{
+  border-color:#00ffcc;
+  box-shadow:0 0 20px #00ffcc;
+}
+.card h3{color:#00f7ff;margin-bottom:8px}
+.card p{opacity:.85}
+
+/* TOGGLE */
+.toggle-box{
+  margin-top:20px;
+  padding:18px;
+  border-radius:18px;
+  background:rgba(0,0,0,.6);
+}
+.toggle{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.switch{position:relative;width:55px;height:28px}
+.switch input{display:none}
+.slider{
+  position:absolute;inset:0;background:#555;
+  border-radius:30px;cursor:pointer;transition:.3s
+}
+.slider:before{
+  content:"";position:absolute;
+  width:22px;height:22px;left:3px;top:3px;
+  background:#fff;border-radius:50%;transition:.3s
+}
+input:checked + .slider{background:#00ffcc}
+input:checked + .slider:before{transform:translateX(26px)}
+
+.qr-box{
+  display:none;
+  margin-top:20px;
+  text-align:center;
+  background:rgba(0,0,0,.7);
+  padding:20px;
+  border-radius:20px;
+}
+.qr-box img{width:230px;border-radius:14px;margin:15px 0}
+
+/* PAYMENT SUCCESS */
+.success{
+  display:none;
+  margin-top:20px;
+  padding:20px;
+  border-radius:18px;
+  background:rgba(0,255,200,.15);
+  box-shadow:0 0 25px #00ffcc;
+}
+.success h3{color:#00ffcc;margin-bottom:10px}
+
+/* BUTTON */
+.btn{
+  display:inline-block;
+  margin-top:12px;
+  padding:14px 20px;
+  border-radius:14px;
+  background:linear-gradient(135deg,#00f7ff,#0066ff);
+  color:#fff;
+  font-weight:bold;
+  text-decoration:none;
+  cursor:pointer;
+}
+.btn:hover{box-shadow:0 0 15px #00f7ff}
+
+/* LINKS */
+.links a{
+  display:block;
+  padding:12px;
+  margin-bottom:10px;
+  text-align:center;
+  border-radius:12px;
+  background:linear-gradient(135deg,#00f7ff,#0066ff);
+  color:#fff;
+  text-decoration:none;
+  font-weight:bold;
+}
+
+footer{text-align:center;opacity:.6;font-size:.85rem}
+footer span{color:#00f7ff}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<div class="header">
+  <img src="your-logo.png">
+  <h1>SURAJ X FLUxGAMER</h1>
+  <p>💎⚡ GUILD GLORY BOT AVAILABLE ✅</p>
+</div>
+
+<div class="section">
+<h2>👑 GLORY PRICES</h2>
+<div class="prices">
+  <div class="card" data-plan="100K GLORY - ₹300">100K GLORY<br>₹300</div>
+  <div class="card" data-plan="200K GLORY - ₹550">200K GLORY<br>₹550</div>
+  <div class="card" data-plan="300K GLORY - ₹700">300K GLORY<br>₹700</div>
+  <div class="card" data-plan="400K GLORY - ₹900">400K GLORY<br>₹900</div>
+  <div class="card" data-plan="500K GLORY - ₹1100">500K GLORY<br>₹1100</div>
+  <div class="card" data-plan="1–7 LEVEL - ₹1500">1–7 LEVEL<br>₹1500</div>
+</div>
+</div>
+
+<div class="toggle-box">
+<div class="toggle">
+<span>Enable Payment</span>
+<label class="switch">
+<input type="checkbox" id="payToggle">
+<span class="slider"></span>
+</label>
+</div>
+
+<div class="qr-box" id="qrBox">
+<img src="your-qr.png">
+<p id="orderText"></p>
+
+<button class="btn" onclick="copyUPI()">📋 COPY PAYMENT INFO</button><br>
+
+<a id="tgBtn" class="btn" target="_blank">
+✅ PAYMENT DONE – CONTACT TELEGRAM
+</a>
+
+<button class="btn" onclick="showSuccess()">💚 I HAVE PAID</button>
+</div>
+
+<div class="success" id="successBox">
+<h3>✅ Payment Received</h3>
+<p>Thanks for your order!<br>Our team will contact you on Telegram.</p>
+</div>
+</div>
+
+<div class="section">
+<h2>🔗 LINKS</h2>
+<div class="links">
+<a href="https://t.me/payment_proof_162" target="_blank">📸 PAYMENT PROOFS</a>
+<a href="https://t.me/surajxmodz" target="_blank">👑 CONTACT OWNER</a>
+</div>
+</div>
+
+<footer>
+© 2026 <span>SURAJ X FLUxGAMER</span>
+</footer>
+
+</div>
+
+<script>
+let selectedPlan="Not Selected";
+document.querySelectorAll(".card").forEach(card=>{
+  card.onclick=()=>{
+    document.querySelectorAll(".card").forEach(c=>c.classList.remove("active"));
+    card.classList.add("active");
+    selectedPlan=card.dataset.plan;
+  }
+});
+
+const toggle=document.getElementById("payToggle");
+const qr=document.getElementById("qrBox");
+const orderText=document.getElementById("orderText");
+const tgBtn=document.getElementById("tgBtn");
+
+toggle.onchange=()=>{
+  if(toggle.checked){
+    const orderID="GX-"+Math.floor(Math.random()*999999);
+    orderText.innerHTML=`<b>Order ID:</b> ${orderID}<br><b>Plan:</b> ${selectedPlan}`;
+    tgBtn.href=`https://t.me/+wbJ9w6uTX_dmYTA1?text=ORDER%20ID:%20${orderID}%0APLAN:%20${selectedPlan}`;
+    qr.style.display="block";
+    qr.scrollIntoView({behavior:"smooth"});
+  }else{
+    qr.style.display="none";
+  }
+}
+
+function copyUPI(){
+  navigator.clipboard.writeText("PAY FOR: "+selectedPlan);
+  alert("Payment info copied!");
+}
+
+function showSuccess(){
+  document.getElementById("successBox").style.display="block";
+}
+</script>
+
+</body>
+</html>
