@@ -231,9 +231,12 @@ toggle.onchange=()=>{
   if(toggle.checked){
     const orderID="GX-"+Math.floor(Math.random()*999999);
     orderText.innerHTML=`<b>Order ID:</b> ${orderID}<br><b>Plan:</b> ${selectedPlan}`;
-    tgBtn.href=`https://t.me/surajxmodz?
-text=ORDER%20ID:%20${orderID}%0APLAN:%20${selectedPlan}`;
-    qr.style.display="block";
+    tgBtn.href = `https://t.me/surajxmodz?text=` +
+             `USERNAME:%20@surajxmodz%0A` +
+             `ORDER%20ID:%20${orderID}%0A` +
+             `PLAN:%20${selectedPlan}`;
+
+qr.style.display = "block";
     qr.scrollIntoView({behavior:"smooth"});
   }else{
     qr.style.display="none";
