@@ -3,176 +3,192 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SURAJ X FLUxGAMER • Guild Glory Store</title>
+<title>SURAJ X FLUxGAMER • Premium Shop</title>
+
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,Arial,sans-serif}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,Segoe UI,sans-serif}
+
 body{
   min-height:100vh;
-  background:linear-gradient(135deg,#16222a,#3a6073);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  padding:20px;
+  background:#0b0f1a;
   color:#fff;
 }
+
+#particles-js{
+  position:fixed;
+  inset:0;
+  z-index:-1;
+}
+
+.page{
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  padding:20px;
+}
+
 .container{
   width:100%;
-  max-width:460px;
-  background:rgba(0,0,0,.55);
-  border-radius:22px;
+  max-width:560px;
+  background:rgba(255,255,255,.06);
+  border-radius:28px;
   padding:22px;
-  box-shadow:0 0 35px rgba(0,255,200,.3);
-  backdrop-filter:blur(12px);
-}
-.header{text-align:center;margin-bottom:16px}
-.header img{width:90px;border-radius:14px;margin-bottom:8px}
-.header h1{font-size:1.5rem;color:#00ffd5}
-.header p{font-size:.85rem;opacity:.85}
-
-.section-title{
-  margin:14px 0 10px;
-  font-size:1.1rem;
-  color:#00ffd5;
+  box-shadow:
+    0 0 40px rgba(160,80,255,.35),
+    inset 0 0 40px rgba(255,255,255,.05);
+  backdrop-filter:blur(18px);
 }
 
-.card{
-  background:rgba(255,255,255,.08);
-  border-radius:16px;
-  padding:14px;
-  margin-bottom:10px;
+.header{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin-bottom:18px;
+}
+.header img{
+  width:82px;
+  border-radius:18px;
+  box-shadow:0 0 20px rgba(160,80,255,.8);
+}
+.header h1{
+  font-size:1.4rem;
+  color:#b88cff;
+}
+.header p{
+  font-size:.8rem;
+  opacity:.85;
+}
+
+.title{
+  margin:16px 0 12px;
+  color:#66f7ff;
+}
+
+.shop{
+  display:grid;
+  gap:12px;
+}
+.item{
   display:flex;
   justify-content:space-between;
   align-items:center;
+  padding:15px;
+  border-radius:20px;
+  background:linear-gradient(135deg,rgba(255,255,255,.12),rgba(255,255,255,.02));
+  border:1px solid rgba(255,255,255,.1);
 }
-.card h3{font-size:.95rem}
-.price{color:#00ffd5;font-weight:bold;font-size:.9rem}
+.price{color:#66f7ff;font-weight:600}
+
 .buy{
-  padding:7px 14px;
+  padding:8px 18px;
+  border-radius:16px;
   border:none;
-  border-radius:12px;
-  background:linear-gradient(135deg,#00ffd5,#00b3ff);
+  background:linear-gradient(135deg,#b88cff,#66f7ff);
   color:#000;
-  font-weight:bold;
+  font-weight:700;
   cursor:pointer;
 }
-.buy:hover{box-shadow:0 0 12px #00ffd5}
 
 #payBox{
   display:none;
-  margin-top:18px;
-  background:rgba(0,0,0,.6);
-  padding:16px;
-  border-radius:18px;
-  text-align:center;
+  margin-top:24px;
+  padding:20px;
+  border-radius:24px;
+  background:linear-gradient(135deg,rgba(184,140,255,.25),rgba(0,0,0,.55));
 }
-#payBox.show{display:block}
 
 #payBox img{
-  width:220px;
-  border-radius:14px;
-  margin:12px 0;
+  width:240px;
+  display:block;
+  margin:16px auto;
+  border-radius:18px;
+  box-shadow:0 0 30px rgba(102,247,255,.7);
 }
 
-.upi{
-  font-size:.9rem;
-  margin-bottom:6px;
-  color:#00ffd5;
-  word-break:break-all;
-}
-
-.info{font-size:.9rem;margin-bottom:8px}
+.info{font-size:.9rem;line-height:1.6}
+.code{color:#66f7ff;font-weight:700}
 
 .btn{
   width:100%;
-  margin-top:8px;
-  padding:11px;
+  margin-top:10px;
+  padding:13px;
+  border-radius:18px;
   border:none;
-  border-radius:14px;
-  background:linear-gradient(135deg,#00ffd5,#00b3ff);
+  background:linear-gradient(135deg,#b88cff,#66f7ff);
   color:#000;
-  font-weight:bold;
+  font-weight:700;
   cursor:pointer;
 }
-.btn.alt{
+.btn.outline{
   background:transparent;
-  color:#00ffd5;
-  border:2px solid #00ffd5;
-}
-.btn:hover{box-shadow:0 0 12px #00ffd5}
-
-.link{
-  display:block;
-  margin-top:10px;
-  text-align:center;
-  color:#00ffd5;
-  font-size:.9rem;
-  text-decoration:none;
-}
-
-#success{
-  display:none;
-  margin-top:10px;
-  padding:12px;
-  border-radius:14px;
-  background:rgba(0,255,200,.18);
-  color:#00ffd5;
+  color:#66f7ff;
+  border:2px solid #66f7ff;
 }
 
 footer{
-  margin-top:14px;
+  margin-top:18px;
   text-align:center;
   font-size:.75rem;
-  opacity:.6;
+  opacity:.65;
 }
 </style>
 </head>
 
 <body>
 
+<div id="particles-js"></div>
+
+<div class="page">
 <div class="container">
 
-  <div class="header">
-    <img src="images/your-logo.png">
+<div class="header">
+  <img src="images/your-logo.png">
+  <div>
     <h1>SURAJ X FLUxGAMER</h1>
-    <p>💎⚡ GUILD GLORY BOT AVAILABLE ✅<br>
-    DM FOR BUY CREDIT & GLORY<br>
-    <b>@surajxmodz</b></p>
+    <p>💎⚡ GUILD GLORY BOT AVAILABLE<br>@surajxmodz</p>
   </div>
+</div>
 
-  <div class="section-title">👑 GLORY PRICES</div>
+<div class="title">👑 GLORY SHOP</div>
 
-  <div class="card"><h3>100K GLORY</h3><div><div class="price">₹300</div><button class="buy">BUY</button></div></div>
-  <div class="card"><h3>200K GLORY</h3><div><div class="price">₹550</div><button class="buy">BUY</button></div></div>
-  <div class="card"><h3>300K GLORY</h3><div><div class="price">₹700</div><button class="buy">BUY</button></div></div>
-  <div class="card"><h3>400K GLORY</h3><div><div class="price">₹900</div><button class="buy">BUY</button></div></div>
-  <div class="card"><h3>500K GLORY</h3><div><div class="price">₹1100</div><button class="buy">BUY</button></div></div>
-  <div class="card"><h3>1 TO 7 LEVEL</h3><div><div class="price">₹1500</div><button class="buy">BUY</button></div></div>
+<div class="shop">
+  <div class="item"><h3>100K GLORY</h3><div><div class="price">₹300</div><button class="buy">BUY</button></div></div>
+  <div class="item"><h3>200K GLORY</h3><div><div class="price">₹550</div><button class="buy">BUY</button></div></div>
+  <div class="item"><h3>300K GLORY</h3><div><div class="price">₹700</div><button class="buy">BUY</button></div></div>
+  <div class="item"><h3>400K GLORY</h3><div><div class="price">₹900</div><button class="buy">BUY</button></div></div>
+  <div class="item"><h3>500K GLORY</h3><div><div class="price">₹1100</div><button class="buy">BUY</button></div></div>
+  <div class="item"><h3>1 TO 7 LEVEL</h3><div><div class="price">₹1500</div><button class="buy">BUY</button></div></div>
+</div>
 
-  <div id="payBox">
-    <div class="info" id="orderText"></div>
-    <img src="images/your-qr.png">
-    <div class="upi">UPI ID: <b>9045657367@fam</b></div>
+<div id="payBox">
+  <div class="info" id="orderText"></div>
+  <img src="images/your-qr.png">
 
-    <button class="btn" onclick="copyPay()">📋 COPY PAYMENT DETAILS</button>
-    <a id="tgBtn" target="_blank"><button class="btn alt">📨 SEND DETAILS ON TELEGRAM</button></a>
-    <button class="btn" onclick="done()">✅ I HAVE PAID</button>
+  <button class="btn" id="upiBtn">💳 PAY USING ANY UPI APP</button>
+  <button class="btn" onclick="copyPay()">📋 COPY PAYMENT DETAILS</button>
+  <button class="btn outline" id="tgBtn">📨 SEND DETAILS ON TELEGRAM</button>
+</div>
 
-    <div id="success">✅ Payment details sent</div>
+<footer>© 2026 SURAJ X FLUxGAMER</footer>
 
-    <a class="link" href="https://t.me/payment_proof_162" target="_blank">
-      💎 PAYMENT PROOFS
-    </a>
-  </div>
-
-  <footer>© 2026 SURAJ X FLUxGAMER</footer>
-
+</div>
 </div>
 
 <script>
-let locked=false;
-let payCode="",orderId="",plan="",price="";
+particlesJS("particles-js",{
+  particles:{
+    number:{value:60},
+    color:{value:"#66f7ff"},
+    size:{value:3},
+    line_linked:{enable:true,color:"#b88cff",opacity:.4},
+    move:{speed:1.4}
+  }
+});
+
 const UPI="9045657367@fam";
+let locked=false,plan="",price="",orderId="",code="";
 
 document.querySelectorAll(".buy").forEach(btn=>{
   btn.onclick=()=>{
@@ -180,35 +196,42 @@ document.querySelectorAll(".buy").forEach(btn=>{
       document.getElementById("payBox").scrollIntoView({behavior:"smooth"});
       return;
     }
-    const card=btn.closest(".card");
-    plan=card.querySelector("h3").innerText;
-    price=card.querySelector(".price").innerText;
+
+    const item=btn.closest(".item");
+    plan=item.querySelector("h3").innerText;
+    price=item.querySelector(".price").innerText;
 
     orderId="GX-"+Math.floor(100000+Math.random()*900000);
-    payCode="PAY-"+Math.random().toString(36).substring(2,8).toUpperCase();
+    code="PAY-"+Math.random().toString(36).substring(2,8).toUpperCase();
     locked=true;
 
     document.getElementById("orderText").innerHTML=
       `Order ID: <b>${orderId}</b><br>
        Plan: <b>${plan}</b><br>
        Amount: <b>${price}</b><br>
-       Code: <b style="color:#00ffd5">${payCode}</b>`;
+       Code: <span class="code">${code}</span>`;
 
-    document.getElementById("tgBtn").href=
-      `https://t.me/surajxmodz?text=NEW%20PAYMENT%0AORDER:%20${orderId}%0APLAN:%20${plan}%0APRICE:%20${price}%0ACODE:%20${payCode}%0AUPI:%20${UPI}`;
+    document.getElementById("upiBtn").onclick=()=>{
+      window.location.href=
+        `upi://pay?pa=${UPI}&pn=SurajX&am=${price.replace("₹","")}&cu=INR&tn=${code}`;
+    };
 
-    document.getElementById("payBox").classList.add("show");
-    document.getElementById("payBox").scrollIntoView({behavior:"smooth"});
+    document.getElementById("tgBtn").onclick=()=>{
+      window.open(
+        `https://t.me/surajxmodz?text=PAYMENT%20DETAILS%0AORDER:${orderId}%0APLAN:${plan}%0APRICE:${price}%0ACODE:${code}`,
+        "_blank"
+      );
+    };
+
+    const box=document.getElementById("payBox");
+    box.style.display="block";
+    box.scrollIntoView({behavior:"smooth"});
   };
 });
 
 function copyPay(){
-  navigator.clipboard.writeText(`UPI: ${UPI}\nCODE: ${payCode}`);
+  navigator.clipboard.writeText(`UPI ID: ${UPI}\nCODE: ${code}`);
   alert("Payment details copied");
-}
-
-function done(){
-  document.getElementById("success").style.display="block";
 }
 </script>
 
