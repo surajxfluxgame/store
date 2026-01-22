@@ -3,176 +3,277 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SURAJ X FLUxGAMER | Guild Glory Store</title>
+<title>SURAJ X FLUxGAMER | Premium Guild Store</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
 body{
   min-height:100vh;
-  background:linear-gradient(-45deg,#020024,#090979,#00d4ff,#000);
+  background:
+    radial-gradient(circle at top, #00f7ff33, transparent 40%),
+    linear-gradient(-45deg,#020024,#050b3a,#001a2d,#000);
   background-size:400% 400%;
-  animation:bg 10s ease infinite;
+  animation:bg 12s ease infinite;
   color:#fff;
   display:flex;
   justify-content:center;
   align-items:center;
-  padding:20px;
+  padding:25px;
 }
+
 @keyframes bg{
   0%{background-position:0% 50%}
   50%{background-position:100% 50%}
   100%{background-position:0% 50%}
 }
 
+/* MAIN CONTAINER */
 .container{
   width:100%;
-  max-width:950px;
-  background:rgba(0,0,0,.65);
-  border-radius:22px;
-  padding:30px;
-  box-shadow:0 0 40px rgba(0,255,255,.4);
-  backdrop-filter:blur(12px);
+  max-width:980px;
+  padding:35px;
+  border-radius:26px;
+  background:rgba(255,255,255,.08);
+  backdrop-filter:blur(18px);
+  box-shadow:
+    0 0 50px rgba(0,255,255,.35),
+    inset 0 0 40px rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.15);
 }
 
-.header{text-align:center;margin-bottom:30px}
-.header img{width:120px;border-radius:18px;margin-bottom:15px}
-.header h1{color:#00f7ff;font-size:2.6rem}
-.header p{opacity:.85}
-
-.section{margin-bottom:30px}
-.section h2{
-  color:#00ffcc;
-  font-size:1.6rem;
+/* HEADER */
+.header{
+  text-align:center;
+  margin-bottom:35px;
+}
+.header img{
+  width:130px;
+  border-radius:22px;
   margin-bottom:15px;
-  border-left:4px solid #00ffcc;
-  padding-left:10px;
+  box-shadow:0 0 20px #00f7ff;
+}
+.header h1{
+  font-size:2.8rem;
+  background:linear-gradient(135deg,#00f7ff,#4facfe);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+.header p{
+  opacity:.85;
+  margin-top:6px;
+}
+
+/* SECTION */
+.section{
+  margin-bottom:35px;
+}
+.section h2{
+  font-size:1.7rem;
+  margin-bottom:18px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  color:#00ffcc;
 }
 
 /* PRICE CARDS */
 .prices{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:15px;
+  gap:18px;
 }
+
 .card{
-  padding:18px;
-  border-radius:18px;
-  background:rgba(255,255,255,.08);
+  padding:22px;
+  border-radius:22px;
+  background:linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,.02));
+  text-align:center;
   cursor:pointer;
-  transition:.3s;
-  border:2px solid transparent;
+  transition:.35s;
+  border:1px solid rgba(255,255,255,.18);
+  position:relative;
+  overflow:hidden;
 }
-.card:hover{transform:scale(1.05)}
+
+.card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(120deg,transparent,#00f7ff55,transparent);
+  opacity:0;
+  transition:.4s;
+}
+
+.card:hover::before{opacity:1}
+.card:hover{transform:translateY(-6px) scale(1.03)}
+
 .card.active{
   border-color:#00ffcc;
-  box-shadow:0 0 20px #00ffcc;
+  box-shadow:0 0 25px #00ffcc;
 }
-.card h3{color:#00f7ff;margin-bottom:8px}
+
+.card h3{
+  color:#00f7ff;
+  font-size:1.3rem;
+  margin-bottom:8px;
+}
 .card p{opacity:.85}
 
-/* TOGGLE */
+/* PAYMENT TOGGLE */
 .toggle-box{
-  margin-top:20px;
-  padding:18px;
-  border-radius:18px;
-  background:rgba(0,0,0,.6);
+  padding:22px;
+  border-radius:24px;
+  background:rgba(0,0,0,.55);
+  border:1px solid rgba(255,255,255,.15);
 }
+
 .toggle{
   display:flex;
   justify-content:space-between;
   align-items:center;
+  font-size:1.1rem;
 }
-.switch{position:relative;width:55px;height:28px}
-.switch input{display:none}
-.slider{
-  position:absolute;inset:0;background:#555;
-  border-radius:30px;cursor:pointer;transition:.3s
-}
-.slider:before{
-  content:"";position:absolute;
-  width:22px;height:22px;left:3px;top:3px;
-  background:#fff;border-radius:50%;transition:.3s
-}
-input:checked + .slider{background:#00ffcc}
-input:checked + .slider:before{transform:translateX(26px)}
 
+/* PREMIUM SWITCH */
+.switch{
+  position:relative;
+  width:64px;
+  height:34px;
+}
+.switch input{display:none}
+
+.slider{
+  position:absolute;
+  inset:0;
+  border-radius:40px;
+  background:#444;
+  transition:.4s;
+  box-shadow:inset 0 0 10px rgba(0,0,0,.8);
+}
+.slider::before{
+  content:"";
+  position:absolute;
+  width:26px;
+  height:26px;
+  left:4px;
+  top:4px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#fff,#ccc);
+  transition:.4s;
+}
+
+input:checked + .slider{
+  background:linear-gradient(135deg,#00f7ff,#00ffcc);
+  box-shadow:0 0 15px #00ffcc;
+}
+input:checked + .slider::before{
+  transform:translateX(30px);
+}
+
+/* QR BOX */
 .qr-box{
   display:none;
-  margin-top:20px;
+  margin-top:25px;
+  padding:25px;
+  border-radius:24px;
   text-align:center;
   background:rgba(0,0,0,.7);
-  padding:20px;
-  border-radius:20px;
+  box-shadow:0 0 30px rgba(0,255,255,.35);
 }
-.qr-box img{width:230px;border-radius:14px;margin:15px 0}
 
-/* PAYMENT SUCCESS */
-.success{
-  display:none;
-  margin-top:20px;
-  padding:20px;
+.qr-box img{
+  width:230px;
   border-radius:18px;
-  background:rgba(0,255,200,.15);
-  box-shadow:0 0 25px #00ffcc;
+  margin:18px 0;
+  box-shadow:0 0 25px #00f7ff;
 }
-.success h3{color:#00ffcc;margin-bottom:10px}
 
-/* BUTTON */
+/* BUTTONS */
 .btn{
   display:inline-block;
-  margin-top:12px;
-  padding:14px 20px;
-  border-radius:14px;
+  margin-top:14px;
+  padding:14px 24px;
+  border-radius:16px;
   background:linear-gradient(135deg,#00f7ff,#0066ff);
   color:#fff;
-  font-weight:bold;
+  font-weight:600;
   text-decoration:none;
   cursor:pointer;
+  transition:.3s;
+  border:none;
 }
-.btn:hover{box-shadow:0 0 15px #00f7ff}
+.btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 0 18px #00f7ff;
+}
+
+/* SUCCESS */
+.success{
+  display:none;
+  margin-top:22px;
+  padding:22px;
+  border-radius:20px;
+  background:rgba(0,255,200,.18);
+  box-shadow:0 0 30px #00ffcc;
+}
 
 /* LINKS */
 .links a{
   display:block;
-  padding:12px;
-  margin-bottom:10px;
+  padding:14px;
+  margin-bottom:12px;
+  border-radius:16px;
   text-align:center;
-  border-radius:12px;
   background:linear-gradient(135deg,#00f7ff,#0066ff);
-  color:#fff;
+  font-weight:600;
   text-decoration:none;
-  font-weight:bold;
+  color:#fff;
+  transition:.3s;
 }
+.links a:hover{transform:scale(1.04)}
 
-footer{text-align:center;opacity:.6;font-size:.85rem}
+footer{
+  text-align:center;
+  opacity:.65;
+  font-size:.85rem;
+}
 footer span{color:#00f7ff}
 </style>
 </head>
 
 <body>
+
 <div class="container">
 
 <div class="header">
- <img src="images/your-logo.png">
+  <img src="images/your-logo.png">
   <h1>SURAJ X FLUxGAMER</h1>
-  <p>💎⚡ GUILD GLORY BOT AVAILABLE ✅</p>
+  <p>💎⚡ Premium Guild Glory Services</p>
 </div>
 
 <div class="section">
 <h2>👑 GLORY PRICES</h2>
 <div class="prices">
-  <div class="card" data-plan="100K GLORY - ₹300">100K GLORY<br>₹300</div>
-  <div class="card" data-plan="200K GLORY - ₹550">200K GLORY<br>₹550</div>
-  <div class="card" data-plan="300K GLORY - ₹700">300K GLORY<br>₹700</div>
-  <div class="card" data-plan="400K GLORY - ₹900">400K GLORY<br>₹900</div>
-  <div class="card" data-plan="500K GLORY - ₹1100">500K GLORY<br>₹1100</div>
-  <div class="card" data-plan="1–7 LEVEL - ₹1500">1–7 LEVEL<br>₹1500</div>
+  <div class="card" data-plan="100K GLORY - ₹300"><h3>100K GLORY</h3><p>₹300</p></div>
+  <div class="card" data-plan="200K GLORY - ₹550"><h3>200K GLORY</h3><p>₹550</p></div>
+  <div class="card" data-plan="300K GLORY - ₹700"><h3>300K GLORY</h3><p>₹700</p></div>
+  <div class="card" data-plan="400K GLORY - ₹900"><h3>400K GLORY</h3><p>₹900</p></div>
+  <div class="card" data-plan="500K GLORY - ₹1100"><h3>500K GLORY</h3><p>₹1100</p></div>
+  <div class="card" data-plan="1–7 LEVEL - ₹1500"><h3>1–7 LEVEL</h3><p>₹1500</p></div>
 </div>
 </div>
 
 <div class="toggle-box">
 <div class="toggle">
-<span>Enable Payment</span>
+<span>Enable Secure Payment</span>
 <label class="switch">
 <input type="checkbox" id="payToggle">
 <span class="slider"></span>
@@ -185,16 +286,14 @@ footer span{color:#00f7ff}
 
 <button class="btn" onclick="copyUPI()">📋 COPY PAYMENT INFO</button><br>
 
-<a id="tgBtn" class="btn" target="_blank">
-✅ PAYMENT DONE – CONTACT TELEGRAM
-</a>
+<a id="tgBtn" class="btn" target="_blank">✅ PAYMENT DONE – CONTACT TELEGRAM</a>
 
 <button class="btn" onclick="showSuccess()">💚 I HAVE PAID</button>
 </div>
 
 <div class="success" id="successBox">
 <h3>✅ Payment Received</h3>
-<p>Thanks for your order!<br>Our team will contact you on Telegram.</p>
+<p>Our team will contact you shortly on Telegram.</p>
 </div>
 </div>
 
@@ -214,6 +313,7 @@ footer span{color:#00f7ff}
 
 <script>
 let selectedPlan="Not Selected";
+
 document.querySelectorAll(".card").forEach(card=>{
   card.onclick=()=>{
     document.querySelectorAll(".card").forEach(c=>c.classList.remove("active"));
@@ -231,12 +331,8 @@ toggle.onchange=()=>{
   if(toggle.checked){
     const orderID="GX-"+Math.floor(Math.random()*999999);
     orderText.innerHTML=`<b>Order ID:</b> ${orderID}<br><b>Plan:</b> ${selectedPlan}`;
-    tgBtn.href = `https://t.me/surajxmodz?text=` +
-             `USERNAME:%20@surajxmodz%0A` +
-             `ORDER%20ID:%20${orderID}%0A` +
-             `PLAN:%20${selectedPlan}`;
-
-qr.style.display = "block";
+    tgBtn.href=`https://t.me/surajxmodz?text=ORDER%20ID:%20${orderID}%0APLAN:%20${selectedPlan}`;
+    qr.style.display="block";
     qr.scrollIntoView({behavior:"smooth"});
   }else{
     qr.style.display="none";
