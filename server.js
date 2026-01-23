@@ -6,41 +6,21 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// 🔐 Yaha apna NEW bot token daalna (BotFather se revoke karke)
-const BOT_TOKEN = "PASTE_NEW_TOKEN_HERE";
-const CHAT_ID = "6840276332"; // jahan orders aayenge
+const BOT_TOKEN = process.env.BOT_TOKEN;
+const CHAT_ID = "6840276332";
 
 app.post("/order", async (req, res) => {
-  const { orderId, plan, price, code, time, status } = req.body;
+  const { orderId, plan, price } = req.body;
 
-  const message = `
-🛒 <b>NEW ORDER RECEIVED</b>
+  const text = `🛒 NEW ORDER\nOrder: ${orderId}\nPlan: ${plan}\nPrice: ${price}`;
 
-🧾 Order ID: <b>${orderId}</b>
-📦 Plan: <b>${plan}</b>
-💰 Price: <b>${price}</b>
-🔑 Code: <b>${code}</b>
-⏰ Time: <b>${time}</b>
-📌 Status: <b>${status}</b>
-`;
+  await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({chat_id:CHAT_ID,text})
+  });
 
-  try {
-    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        chat_id: CHAT_ID,
-        text: message,
-        parse_mode: "HTML"
-      })
-    });
-
-    res.json({ success: true });
-  } catch (err) {
-    res.status(500).json({ success: false });
-  }
+  res.json({ok:true});
 });
 
-app.get("/", (req,res)=>res.send("Bot Server Running ✅"));
-
-app.listen(3000, () => console.log("Server started"));
+app.listen(3000);
