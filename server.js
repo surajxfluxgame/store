@@ -1,60 +1,46 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const TelegramBot = require("node-telegram-bot-api");
+import express from "express";
+import fetch from "node-fetch";
+import cors from "cors";
 
 const app = express();
-app.use(bodyParser.json());
+app.use(cors());
+app.use(express.json());
 
-// ENV VARIABLES
-const TOKEN = process.env.BOT_TOKEN;
-const ADMIN_ID = process.env.ADMIN_ID;
+// 🔐 Yaha apna NEW bot token daalna (BotFather se revoke karke)
+const BOT_TOKEN = "PASTE_NEW_TOKEN_HERE";
+const CHAT_ID = "8435909622"; // jahan orders aayenge
 
-// SAFETY CHECK
-if (!TOKEN || !ADMIN_ID) {
-  console.error("❌ BOT_TOKEN or ADMIN_ID missing");
-  process.exit(1);
-}
-
-// BOT WITH POLLING (IMPORTANT)
-const bot = new TelegramBot(TOKEN, { polling: true });
-
-// START COMMAND (TEST)
-bot.onText(/\/start/, (msg) => {
-  bot.sendMessage(
-    msg.chat.id,
-    "✅ Bot is active & ready to receive orders"
-  );
-});
-
-// ORDER ROUTE
 app.post("/order", async (req, res) => {
-  try {
-    const { orderId, plan, price, code } = req.body;
+  const { orderId, plan, price, code, time, status } = req.body;
 
-    const message = `
-🛒 NEW ORDER RECEIVED
+  const message = `
+🛒 <b>NEW ORDER RECEIVED</b>
 
-🆔 Order ID: ${orderId}
-📦 Plan: ${plan}
-💰 Price: ${price}
-🔑 Code: ${code}
+🧾 Order ID: <b>${orderId}</b>
+📦 Plan: <b>${plan}</b>
+💰 Price: <b>${price}</b>
+🔑 Code: <b>${code}</b>
+⏰ Time: <b>${time}</b>
+📌 Status: <b>${status}</b>
 `;
 
-    await bot.sendMessage(ADMIN_ID, message);
-    res.status(200).json({ success: true });
+  try {
+    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        chat_id: CHAT_ID,
+        text: message,
+        parse_mode: "HTML"
+      })
+    });
+
+    res.json({ success: true });
   } catch (err) {
-    console.error(err);
     res.status(500).json({ success: false });
   }
 });
 
-// HOME ROUTE (Render test)
-app.get("/", (req, res) => {
-  res.send("🤖 Bot is running");
-});
+app.get("/", (req,res)=>res.send("Bot Server Running ✅"));
 
-// SERVER
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log("🚀 Server running on port " + PORT);
-});
+app.listen(3000, () => console.log("Server started"));
