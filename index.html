@@ -10,40 +10,22 @@
 
 <style>
 :root{--neon:#66f7ff;--accent:#c39bff;--bg:#050510;--card:rgba(255,255,255,.05);}
-.light{--bg:#f5f7ff;--card:#ffffff;--neon:#0077ff;--accent:#ff4ecd;color:#000}
 *{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,Segoe UI,sans-serif}
-body{background:var(--bg);color:#fff;transition:.3s}
+body{background:var(--bg);color:#fff}
 #particles-js{position:fixed;inset:0;z-index:-1}
 .page{min-height:100vh;display:flex;justify-content:center;padding:18px}
-.container{width:100%;max-width:560px;background:var(--card);border-radius:30px;padding:22px;backdrop-filter:blur(16px);box-shadow:0 0 60px rgba(140,90,255,.25);}
+.container{width:100%;max-width:560px;background:var(--card);border-radius:30px;padding:22px;backdrop-filter:blur(16px)}
 .header{display:flex;gap:14px;align-items:center}
-.header img{width:80px;border-radius:18px;box-shadow:0 0 25px var(--accent)}
+.header img{width:80px;border-radius:18px}
 .header h1{color:var(--accent);font-size:1.35rem}
-.header p{font-size:.78rem;opacity:.8}
 .contactBtn{display:inline-block;margin-top:6px;padding:6px 14px;border-radius:14px;font-size:.75rem;text-decoration:none;background:linear-gradient(135deg,var(--neon),var(--accent));color:#000;font-weight:700}
-.divider{height:1px;margin:16px 0;background:linear-gradient(90deg,transparent,var(--neon),transparent)}
-.title{color:var(--neon);font-weight:700;margin-bottom:12px}
-.shop{display:grid;gap:14px}
-.item{display:flex;justify-content:space-between;align-items:center;padding:16px 18px;border-radius:22px;background:linear-gradient(135deg,rgba(255,255,255,.12),rgba(255,255,255,.02));position:relative}
-.stock{position:absolute;top:6px;right:12px;font-size:.65rem;color:#ff7676}
+.shop{display:grid;gap:14px;margin-top:15px}
+.item{display:flex;justify-content:space-between;align-items:center;padding:16px 18px;border-radius:22px;background:linear-gradient(135deg,rgba(255,255,255,.12),rgba(255,255,255,.02))}
 .price{color:var(--neon);font-weight:700}
-button{border:none;cursor:pointer;transition:.2s}
-.buy{padding:9px 20px;border-radius:18px;background:linear-gradient(135deg,var(--accent),var(--neon));color:#000;font-weight:800;box-shadow:0 0 10px var(--accent)}
-.buy:hover{transform:scale(1.08);box-shadow:0 0 20px var(--neon)}
-.btn{width:100%;margin-top:12px;padding:14px;border-radius:18px;background:linear-gradient(135deg,var(--accent),var(--neon));color:#000;font-weight:800}
-.btn.outline{background:transparent;color:var(--neon);border:2px solid var(--neon)}
-#payBox,#historyBox,#adminBox{display:none;margin-top:22px;padding:20px;border-radius:24px;background:linear-gradient(180deg,#12122a,#000);}
-.info{font-size:.9rem;line-height:1.7}
-.code{color:var(--neon);font-weight:800}
-.qr{width:240px;display:block;margin:16px auto;border-radius:18px;box-shadow:0 0 30px rgba(102,247,255,.7)}
-#preview{display:none;width:100%;margin-top:12px;border-radius:18px}
-.timer{margin-top:10px;font-size:.8rem;color:#ffcc00;text-align:center}
-.status{margin-top:8px;text-align:center;font-weight:700}
-.couponBox{display:flex;gap:8px;margin-top:10px}
-.couponBox input{flex:1;padding:8px;border-radius:10px;border:none}
-.historyItem{padding:8px;border-radius:12px;margin-bottom:8px;background:rgba(255,255,255,.06);font-size:.75rem}
-.toggleBar{display:flex;gap:10px;margin-top:10px}
-footer{text-align:center;font-size:.7rem;opacity:.6;margin-top:18px;cursor:pointer}
+.buy{padding:9px 20px;border-radius:18px;background:linear-gradient(135deg,var(--accent),var(--neon));color:#000;font-weight:800;cursor:pointer}
+#payBox{display:none;margin-top:25px;padding:20px;border-radius:24px;background:linear-gradient(180deg,#12122a,#000);}
+.btn{width:100%;margin-top:12px;padding:14px;border-radius:18px;background:linear-gradient(135deg,var(--accent),var(--neon));color:#000;font-weight:800;border:none;cursor:pointer}
+.qr{width:240px;display:block;margin:16px auto;border-radius:18px}
 </style>
 </head>
 
@@ -56,55 +38,36 @@ footer{text-align:center;font-size:.7rem;opacity:.6;margin-top:18px;cursor:point
   <img src="images/your-logo.png">
   <div>
     <h1>SURAJ X FLUxGAMER</h1>
-    <p>💎 GUILD GLORY BOT AVAILABLE<br>@surajxmodz</p>
-    <a href="https://t.me/surajxmodz" target="_blank" class="contactBtn">📩 DM OWNER</a>
+    <a href="https://t.me/surajxmodz" target="_blank" class="contactBtn">📩 DM SELLER</a>
   </div>
 </div>
 
-<div class="toggleBar">
-<button class="btn outline" onclick="toggleTheme()">🌙 / ☀️ Mode</button>
-<button class="btn outline" onclick="toggleHistory()">🧾 Orders</button>
-<button class="btn outline" onclick="toggleAdmin()">🛠 Admin</button>
-</div>
-
-<div class="divider"></div>
-<div class="title">GLORY SHOP</div>
+<h2 style="margin:15px 0;color:var(--neon)">GLORY SHOP</h2>
 <div class="shop" id="shop"></div>
 
 <div id="payBox">
-  <div class="info" id="orderText"></div>
-
-  <div class="timer" id="timer"></div>
-  <div class="status" id="status"></div>
-
+  <div id="orderText"></div>
   <img src="images/your-qr.png" class="qr">
-
-  <label>Upload Payment Screenshot</label>
   <input type="file" id="proof" accept="image/*">
-  <img id="preview">
-
   <button class="btn" id="upiBtn">PAY USING ANY UPI</button>
   <button class="btn" id="submitBtn" disabled>SUBMIT PAYMENT</button>
-  <button class="btn outline" onclick="contactOwner()">💬 DM OWNER</button>
+  <button class="btn" onclick="contactOwner()">💬 DM SELLER</button>
 </div>
 
-<div id="historyBox"><div class="title">ORDER HISTORY</div><div id="historyList"></div></div>
-<div id="adminBox"><div class="title">ADMIN PANEL (LOCAL)</div><div id="adminList"></div></div>
-
-<footer>© 2026 SURAJ X FLUxGAMER</footer>
 </div></div>
+
+<audio id="clickSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3?filename=click-124467.mp3"></audio>
 
 <script>
 const OWNER="surajxmodz";
 const UPI="9045657367@fam";
-const BOT_ENDPOINT="https://store-0gqa.onrender.com/order"; // 🔥 BOT SERVER
+const BOT_ENDPOINT="https://store-0gqa.onrender.com/order";
 
-const plans=[["100K GLORY","₹300"],["200K GLORY","₹550"],["300K GLORY","₹700"],["400K GLORY","₹900"],["500K GLORY","₹1100"],["1 TO 7 LEVEL","₹1500"]];
+const plans=[["100K GLORY","₹300"],["200K GLORY","₹550"],["300K GLORY","₹700"],["400K GLORY","₹900"]];
 const shop=document.getElementById("shop");
 
 plans.forEach(p=>{
-const stock=Math.floor(Math.random()*6)+4;
-shop.innerHTML+=`<div class="item"><div><h3>${p[0]}</h3><div class="stock">Only ${stock} left</div></div><div><div class="price">${p[1]}</div><button class="buy">BUY</button></div></div>`;
+shop.innerHTML+=`<div class="item"><div><h3>${p[0]}</h3></div><div><div class="price">${p[1]}</div><button class="buy">BUY</button></div></div>`;
 });
 
 particlesJS("particles-js",{particles:{number:{value:40},size:{value:3},line_linked:{enable:true}}});
@@ -113,58 +76,43 @@ let plan="",price="",orderId="",code="";
 
 document.querySelectorAll(".buy").forEach(btn=>{
 btn.onclick=()=>{
+document.getElementById("clickSound").play();
+
 const item=btn.closest(".item");
 plan=item.querySelector("h3").innerText;
 price=item.querySelector(".price").innerText;
 orderId="GX-"+Date.now();
 code="PAY-"+Math.random().toString(36).substr(2,6).toUpperCase();
 
-orderText.innerHTML=`Order ID: <b>${orderId}</b><br>Plan: <b>${plan}</b><br>Amount: <b>${price}</b><br>Code: <span class="code">${code}</span>`;
+orderText.innerHTML=`Order ID: <b>${orderId}</b><br>Plan: <b>${plan}</b><br>Amount: <b>${price}</b><br>Code: <b>${code}</b>`;
 payBox.style.display="block";
 payBox.scrollIntoView({behavior:"smooth"});
-startTimer();
 };
 });
 
-function startTimer(){
-let t=300;
-const int=setInterval(()=>{
-t--;
-timer.innerText=`Complete payment in ${Math.floor(t/60)}:${t%60}`;
-if(t<=0){clearInterval(int);timer.innerText="Session expired";}
-},1000);
-}
-
 upiBtn.onclick=()=>{const amt=price.replace(/[^\d]/g,'');location.href=`upi://pay?pa=${UPI}&am=${amt}&cu=INR&tn=${code}`;};
 
-proof.onchange=()=>{
-const r=new FileReader();
-r.onload=e=>{preview.src=e.target.result;preview.style.display="block";submitBtn.disabled=false;};
-r.readAsDataURL(proof.files[0]);
-};
+proof.onchange=()=> submitBtn.disabled=false;
 
 submitBtn.onclick=()=>{
-confetti({particleCount:150,spread:100});
-status.innerText="Payment Received! Sending to owner...";
+confetti({particleCount:120,spread:90});
 
+// Send to bot server
 fetch(BOT_ENDPOINT,{
-method:"POST",
-headers:{"Content-Type":"application/json"},
-body:JSON.stringify({orderId,plan,price,code})
-}).catch(()=>{});
+  method:"POST",
+  headers:{"Content-Type":"application/json"},
+  body:JSON.stringify({orderId,plan,price,code})
+});
 
 contactOwner();
-status.innerText="Order Submitted ✅";
+alert("Order Submitted! Bot ko details bhej di gayi ✅");
 };
 
 function contactOwner(){
+if(!orderId) return window.open(`https://t.me/${OWNER}`,"_blank");
 const msg=`ORDER ID: ${orderId}\nPLAN: ${plan}\nPRICE: ${price}\nCODE: ${code}`;
 window.open(`https://t.me/${OWNER}?text=${encodeURIComponent(msg)}`,"_blank");
 }
-
-function toggleTheme(){document.body.classList.toggle("light")}
-function toggleHistory(){historyBox.style.display=historyBox.style.display==="block"?"none":"block";}
-function toggleAdmin(){adminBox.style.display=adminBox.style.display==="block"?"none":"block";}
 </script>
 </body>
 </html>
