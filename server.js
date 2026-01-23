@@ -8,7 +8,7 @@ app.use(express.json());
 
 // 🔐 Yaha apna NEW bot token daalna (BotFather se revoke karke)
 const BOT_TOKEN = "PASTE_NEW_TOKEN_HERE";
-const CHAT_ID = "8435909622"; // jahan orders aayenge
+const CHAT_ID = "6840276332"; // jahan orders aayenge
 
 app.post("/order", async (req, res) => {
   const { orderId, plan, price, code, time, status } = req.body;
