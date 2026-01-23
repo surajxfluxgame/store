@@ -36,7 +36,6 @@ body{background:var(--bg);color:#fff}
 <div class="page">
 <div class="container">
 
-<!-- HEADER WITH IMAGE -->
 <div class="header">
   <img src="images/your-logo.png">
   <div>
@@ -50,7 +49,6 @@ body{background:var(--bg);color:#fff}
 <div id="payBox">
   <div id="orderText"></div>
 
-  <!-- QR IMAGE (STATIC IMAGE FROM YOUR FOLDER) -->
   <img src="images/your-qr.png" class="qr">
 
   <input type="file" id="proof" accept="image/*">
@@ -67,7 +65,7 @@ body{background:var(--bg);color:#fff}
 <script>
 const OWNER="surajxmodz";
 const UPI="9045657367@fam";
-const BOT_ENDPOINT="https://store-0gqa.onrender.com/order";
+const BOT_ENDPOINT="https://store-0gqa.onrender.com/order"; // YOUR BACKEND
 
 const plans=[
 ["100K GLORY","₹300"],
@@ -80,7 +78,13 @@ const plans=[
 
 const shop=document.getElementById("shop");
 plans.forEach(p=>{
-shop.innerHTML+=`<div class="item"><div><h3>${p[0]}</h3></div><div><div class="price">${p[1]}</div><button class="buy">BUY</button></div></div>`;
+shop.innerHTML+=`<div class="item">
+  <div><h3>${p[0]}</h3></div>
+  <div>
+    <div class="price">${p[1]}</div>
+    <button class="buy">BUY</button>
+  </div>
+</div>`;
 });
 
 particlesJS("particles-js",{particles:{number:{value:40}}});
@@ -90,13 +94,20 @@ let plan="",price="",orderId="",code="";
 document.querySelectorAll(".buy").forEach(btn=>{
 btn.onclick=()=>{
 document.getElementById("clickSound").play();
+
 const item=btn.closest(".item");
 plan=item.querySelector("h3").innerText;
 price=item.querySelector(".price").innerText;
+
 orderId="GX-"+Date.now();
 code="PAY-"+Math.random().toString(36).substr(2,6).toUpperCase();
 
-orderText.innerHTML=`Order ID: <b>${orderId}</b><br>Plan: <b>${plan}</b><br>Amount: <b>${price}</b><br>Code: <b>${code}</b>`;
+orderText.innerHTML=`
+Order ID: <b>${orderId}</b><br>
+Plan: <b>${plan}</b><br>
+Amount: <b>${price}</b><br>
+Code: <b>${code}</b>`;
+
 payBox.style.display="block";
 payBox.scrollIntoView({behavior:"smooth"});
 };
@@ -108,21 +119,44 @@ location.href=`upi://pay?pa=${UPI}&am=${price.replace(/[^\d]/g,'')}&cu=INR&tn=${
 
 proof.onchange=()=> submitBtn.disabled=false;
 
-submitBtn.onclick=()=>{
+submitBtn.onclick=async ()=>{
+submitBtn.disabled=true;
+submitBtn.innerText="SENDING...";
+
 confetti({particleCount:120,spread:90});
 
-fetch(BOT_ENDPOINT,{
+const payload={
+orderId,
+plan,
+price,
+code,
+time:new Date().toLocaleString(),
+status:"PAYMENT SUBMITTED"
+};
+
+try{
+const res=await fetch(BOT_ENDPOINT,{
 method:"POST",
 headers:{"Content-Type":"application/json"},
-body:JSON.stringify({orderId,plan,price,code})
+body:JSON.stringify(payload)
 });
 
-contactOwner();
+if(res.ok){
 alert("Order Sent To Bot ✅");
+contactOwner();
+submitBtn.innerText="SENT ✔";
+}else{
+throw new Error();
+}
+}catch(e){
+alert("Server Error ❌ Try again");
+submitBtn.disabled=false;
+submitBtn.innerText="SUBMIT PAYMENT";
+}
 };
 
 function contactOwner(){
-window.open(`https://t.me/${OWNER}?text=ORDER ID: ${orderId} PLAN: ${plan} PRICE: ${price}`,"_blank");
+window.open(`https://t.me/${OWNER}?text=🧾 ORDER ID: ${orderId}%0A📦 PLAN: ${plan}%0A💰 PRICE: ${price}%0A🔑 CODE: ${code}`,"_blank");
 }
 </script>
 </body>
