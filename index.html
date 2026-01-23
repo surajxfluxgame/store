@@ -28,6 +28,7 @@ body{background:var(--bg);color:#fff}
 #payBox{display:none;margin-top:20px;padding:20px;border-radius:20px;background:#0d0d1f}
 .btn{width:100%;margin-top:10px;padding:12px;border-radius:14px;background:linear-gradient(135deg,var(--accent),var(--neon));border:none;font-weight:700;cursor:pointer}
 .qr{width:220px;display:block;margin:12px auto;border-radius:12px}
+.status{margin-top:8px;font-size:13px;opacity:.8;text-align:center}
 </style>
 </head>
 
@@ -48,24 +49,26 @@ body{background:var(--bg);color:#fff}
 
 <div id="payBox">
   <div id="orderText"></div>
-
   <img src="images/your-qr.png" class="qr">
 
   <input type="file" id="proof" accept="image/*">
+  <div class="status" id="fileStatus">Upload payment screenshot</div>
 
   <button class="btn" id="upiBtn">PAY WITH UPI</button>
   <button class="btn" id="submitBtn" disabled>SUBMIT PAYMENT</button>
   <button class="btn" onclick="contactOwner()">DM SELLER</button>
+
+  <div class="status" id="statusMsg"></div>
 </div>
 
 </div></div>
 
-<audio id="clickSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3?filename=click-124467.mp3"></audio>
+<audio id="clickSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a73467.mp3"></audio>
 
 <script>
 const OWNER="surajxmodz";
 const UPI="9045657367@fam";
-const BOT_ENDPOINT="https://store-0gqa.onrender.com/order"; // YOUR BACKEND
+const BOT_ENDPOINT="https://store-0gqa.onrender.com/order";
 
 const plans=[
 ["100K GLORY","₹300"],
@@ -89,12 +92,11 @@ shop.innerHTML+=`<div class="item">
 
 particlesJS("particles-js",{particles:{number:{value:40}}});
 
-let plan="",price="",orderId="",code="";
+let plan="",price="",orderId="",code="",proofFileName="";
 
 document.querySelectorAll(".buy").forEach(btn=>{
 btn.onclick=()=>{
-document.getElementById("clickSound").play();
-
+clickSound.play();
 const item=btn.closest(".item");
 plan=item.querySelector("h3").innerText;
 price=item.querySelector(".price").innerText;
@@ -115,13 +117,18 @@ payBox.scrollIntoView({behavior:"smooth"});
 
 upiBtn.onclick=()=>{
 location.href=`upi://pay?pa=${UPI}&am=${price.replace(/[^\d]/g,'')}&cu=INR&tn=${code}`;
-}
+};
 
-proof.onchange=()=> submitBtn.disabled=false;
+proof.onchange=e=>{
+proofFileName=e.target.files[0]?.name || "";
+fileStatus.innerText="Uploaded: "+proofFileName;
+submitBtn.disabled=false;
+};
 
 submitBtn.onclick=async ()=>{
 submitBtn.disabled=true;
 submitBtn.innerText="SENDING...";
+statusMsg.innerText="Sending order to server...";
 
 confetti({particleCount:120,spread:90});
 
@@ -130,6 +137,8 @@ orderId,
 plan,
 price,
 code,
+proof: proofFileName,
+device: navigator.userAgent,
 time:new Date().toLocaleString(),
 status:"PAYMENT SUBMITTED"
 };
@@ -142,14 +151,12 @@ body:JSON.stringify(payload)
 });
 
 if(res.ok){
-alert("Order Sent To Bot ✅");
-contactOwner();
+statusMsg.innerText="Order sent successfully ✅";
 submitBtn.innerText="SENT ✔";
-}else{
-throw new Error();
-}
-}catch(e){
-alert("Server Error ❌ Try again");
+contactOwner();
+}else throw new Error();
+}catch{
+statusMsg.innerText="Server error ❌ Try again";
 submitBtn.disabled=false;
 submitBtn.innerText="SUBMIT PAYMENT";
 }
