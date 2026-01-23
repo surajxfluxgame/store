@@ -1,45 +1,38 @@
 const express = require("express");
-const bodyParser = require("body-parser");
 const TelegramBot = require("node-telegram-bot-api");
 
 const app = express();
-app.use(bodyParser.json());
 
-const TOKEN = process.env.BOT_TOKEN; // Render env variable
-const OWNER_ID = process.env.OWNER_ID; // Tumhara Telegram ID
+// ====== ENV VARIABLES ======
+const token = process.env.BOT_TOKEN;
+const adminId = process.env.ADMIN_ID;
 
-const bot = new TelegramBot(TOKEN, { polling: true });
+// ====== TELEGRAM BOT ======
+const bot = new TelegramBot(token, { polling: true });
 
-bot.on("message", (msg) => {
-  if (msg.text === "/start") {
-    bot.sendMessage(msg.chat.id, "✅ Bot is active and connected!");
-  }
+bot.onText(/\/start/, (msg) => {
+  bot.sendMessage(msg.chat.id, "🔥 Bot is LIVE and working!");
 });
 
-app.post("/order", async (req, res) => {
+// Example order receive endpoint
+app.use(express.json());
+
+app.post("/order", (req, res) => {
   const { orderId, plan, price, code } = req.body;
 
-  const message = `
+  const text = `
 🛒 *NEW ORDER RECEIVED*
+Order ID: ${orderId}
+Plan: ${plan}
+Price: ${price}
+Code: ${code}
+  `;
 
-🆔 Order ID: ${orderId}
-📦 Plan: ${plan}
-💰 Price: ${price}
-🔑 Code: ${code}
-`;
+  bot.sendMessage(adminId, text, { parse_mode: "Markdown" });
 
-  try {
-    await bot.sendMessage(OWNER_ID, message, { parse_mode: "Markdown" });
-    res.sendStatus(200);
-  } catch (err) {
-    console.log(err);
-    res.sendStatus(500);
-  }
+  res.send({ status: "Order sent to Telegram" });
 });
 
-app.get("/", (req, res) => {
-  res.send("Bot Server Running ✅");
-});
-
+// ====== RENDER PORT FIX ======
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log("Bot is running..."));
+app.listen(PORT, () => console.log("Server running on port " + PORT));
