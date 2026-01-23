@@ -8,113 +8,54 @@
 <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 
 <style>
-:root{
-  --neon:#66f7ff;
-  --accent:#c39bff;
-}
-
+:root{--neon:#66f7ff;--accent:#c39bff;}
 *{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,Segoe UI,sans-serif}
 body{background:#050510;color:#fff}
-
 #particles-js{position:fixed;inset:0;z-index:-1}
-
 .page{min-height:100vh;display:flex;justify-content:center;padding:18px}
-.container{
-  width:100%;max-width:560px;
-  background:rgba(255,255,255,.05);
-  border-radius:30px;
-  padding:22px;
-  backdrop-filter:blur(16px);
-  box-shadow:0 0 60px rgba(140,90,255,.35);
-}
-
+.container{width:100%;max-width:560px;background:rgba(255,255,255,.05);border-radius:30px;padding:22px;backdrop-filter:blur(16px);box-shadow:0 0 60px rgba(140,90,255,.35);}
 .header{display:flex;gap:14px;align-items:center}
 .header img{width:80px;border-radius:18px;box-shadow:0 0 25px var(--accent)}
 .header h1{color:var(--accent);font-size:1.35rem}
 .header p{font-size:.78rem;opacity:.8}
-
+.contactBtn{display:inline-block;margin-top:6px;padding:6px 14px;border-radius:14px;font-size:.75rem;text-decoration:none;background:linear-gradient(135deg,var(--neon),var(--accent));color:#000;font-weight:700}
 .divider{height:1px;margin:16px 0;background:linear-gradient(90deg,transparent,var(--neon),transparent)}
-
 .title{color:var(--neon);font-weight:700;margin-bottom:12px}
-
 .shop{display:grid;gap:14px}
-.item{
-  display:flex;justify-content:space-between;align-items:center;
-  padding:16px 18px;border-radius:22px;
-  background:linear-gradient(135deg,rgba(255,255,255,.12),rgba(255,255,255,.02));
-}
+.item{display:flex;justify-content:space-between;align-items:center;padding:16px 18px;border-radius:22px;background:linear-gradient(135deg,rgba(255,255,255,.12),rgba(255,255,255,.02));}
 .price{color:var(--neon);font-weight:700}
-
 button{border:none;cursor:pointer}
-.buy,.btn{
-  padding:9px 20px;border-radius:18px;
-  background:linear-gradient(135deg,var(--accent),var(--neon));
-  color:#000;font-weight:800
-}
+.buy,.btn{padding:9px 20px;border-radius:18px;background:linear-gradient(135deg,var(--accent),var(--neon));color:#000;font-weight:800}
 .btn{width:100%;margin-top:12px;padding:14px}
-.btn.outline{
-  background:transparent;
-  color:var(--neon);
-  border:2px solid var(--neon)
-}
-
-#payBox,#settingsBox{
-  display:none;
-  margin-top:22px;
-  padding:20px;
-  border-radius:24px;
-  background:linear-gradient(180deg,#12122a,#000);
-}
-
+.btn.outline{background:transparent;color:var(--neon);border:2px solid var(--neon)}
+#payBox,#settingsBox,#historyBox{display:none;margin-top:22px;padding:20px;border-radius:24px;background:linear-gradient(180deg,#12122a,#000);}
 .info{font-size:.9rem;line-height:1.7}
 .code{color:var(--neon);font-weight:800}
-
-.qr{
-  width:240px;
-  display:block;
-  margin:16px auto;
-  border-radius:18px;
-  box-shadow:0 0 30px rgba(102,247,255,.7)
-}
-
-#preview{
-  display:none;
-  width:100%;
-  margin-top:12px;
-  border-radius:18px;
-}
-
-footer{
-  text-align:center;
-  font-size:.7rem;
-  opacity:.6;
-  margin-top:18px;
-  cursor:pointer
-}
+.qr{width:240px;display:block;margin:16px auto;border-radius:18px;box-shadow:0 0 30px rgba(102,247,255,.7)}
+#preview{display:none;width:100%;margin-top:12px;border-radius:18px}
+.historyItem{padding:10px;border-radius:14px;margin-bottom:10px;background:rgba(255,255,255,.06);font-size:.8rem}
+footer{text-align:center;font-size:.7rem;opacity:.6;margin-top:18px;cursor:pointer}
 </style>
 </head>
 
 <body>
-
 <div id="particles-js"></div>
 
 <div class="page">
 <div class="container">
 
-<!-- HEADER -->
 <div class="header">
   <img src="images/your-logo.png">
   <div>
     <h1>SURAJ X FLUxGAMER</h1>
     <p>💎⚡ GUILD GLORY BOT AVAILABLE<br>@surajxmodz</p>
+    <a href="https://t.me/surajxmodz" target="_blank" class="contactBtn">📩 CONTACT ADMIN</a>
   </div>
 </div>
 
 <div class="divider"></div>
-
 <div class="title">👑 GLORY SHOP</div>
 
-<!-- ✅ FULL PRICE LIST (UNCHANGED) -->
 <div class="shop">
   <div class="item"><h3>100K GLORY</h3><div><div class="price">₹300</div><button class="buy">BUY</button></div></div>
   <div class="item"><h3>200K GLORY</h3><div><div class="price">₹550</div><button class="buy">BUY</button></div></div>
@@ -124,32 +65,31 @@ footer{
   <div class="item"><h3>1 TO 7 LEVEL</h3><div><div class="price">₹1500</div><button class="buy">BUY</button></div></div>
 </div>
 
-<!-- PAYMENT BOX -->
 <div id="payBox">
   <div class="info" id="orderText"></div>
-
-  <!-- QR IMAGE -->
   <img src="images/your-qr.png" class="qr">
-
   <label>📸 Upload Payment Screenshot</label>
   <input type="file" id="proof" accept="image/*">
   <img id="preview">
-
   <button class="btn" id="upiBtn">💳 PAY USING ANY UPI</button>
   <button class="btn" id="submitBtn" disabled>✅ SUBMIT PAYMENT</button>
+  <button class="btn outline" onclick="contactAdmin()">💬 CONTACT ADMIN</button>
 </div>
 
-<!-- SETTINGS -->
+<div id="historyBox">
+  <div class="title">🧾 ORDER HISTORY</div>
+  <div id="historyList"></div>
+  <button class="btn outline" onclick="exportOrders()">📤 EXPORT ORDERS</button>
+  <button class="btn outline" onclick="clearHistory()">CLEAR HISTORY</button>
+</div>
+
 <div id="settingsBox">
   <div class="title">⚙️ SETTINGS</div>
-
   <label>Neon Color</label>
   <input type="color" id="neonPicker">
-
   <label>Accent Color</label>
   <input type="color" id="accentPicker">
-
-  <button class="btn outline" onclick="clearHistory()">CLEAR HISTORY</button>
+  <button class="btn outline" onclick="toggleHistory()">VIEW ORDER HISTORY</button>
 </div>
 
 <footer onclick="toggleSettings()">© 2026 SURAJ X FLUxGAMER</footer>
@@ -157,82 +97,98 @@ footer{
 </div>
 </div>
 
+<audio id="buySound" src="https://assets.mixkit.co/active_storage/sfx/2568/2568-preview.mp3"></audio>
+<audio id="successSound" src="https://assets.mixkit.co/active_storage/sfx/1435/1435-preview.mp3"></audio>
+
 <script>
-/* CONFIG */
 const UPI="9045657367@fam";
 
-/* LOAD THEME */
-if(localStorage.neon)document.documentElement.style.setProperty('--neon',localStorage.neon);
-if(localStorage.accent)document.documentElement.style.setProperty('--accent',localStorage.accent);
+function loadParticles(){
+particlesJS("particles-js",{particles:{number:{value:40},color:{value:getComputedStyle(document.documentElement).getPropertyValue('--neon')},size:{value:3},line_linked:{enable:true,color:getComputedStyle(document.documentElement).getPropertyValue('--accent'),opacity:.3},move:{speed:1.2}}});
+}
+loadParticles();
 
-/* PARTICLES */
-particlesJS("particles-js",{particles:{
-number:{value:40},
-color:{value:getComputedStyle(document.documentElement).getPropertyValue('--neon')},
-size:{value:3},
-line_linked:{enable:true,color:"#c39bff",opacity:.3},
-move:{speed:1.2}
-}});
-
-/* BUY FLOW */
 let plan="",price="",orderId="",code="";
+
 document.querySelectorAll(".buy").forEach(btn=>{
 btn.onclick=()=>{
+buySound.play();
 const item=btn.closest(".item");
 plan=item.querySelector("h3").innerText;
 price=item.querySelector(".price").innerText;
 orderId="GX-"+Date.now();
 code="PAY-"+Math.random().toString(36).substr(2,6).toUpperCase();
 
-orderText.innerHTML=
-`Order ID: <b>${orderId}</b><br>
-Plan: <b>${plan}</b><br>
-Amount: <b>${price}</b><br>
-Code: <span class="code">${code}</span>`;
+orderText.innerHTML=`Order ID: <b>${orderId}</b><br>Plan: <b>${plan}</b><br>Amount: <b>${price}</b><br>Code: <span class="code">${code}</span>`;
 
 upiBtn.onclick=()=>{
-location.href=`upi://pay?pa=${UPI}&am=${price.replace("₹","")}&cu=INR&tn=${code}`;
+const amt=price.replace(/[^\d]/g,'');
+location.href=`upi://pay?pa=${UPI}&am=${amt}&cu=INR&tn=${code}`;
 };
 
 payBox.style.display="block";
-payBox.scrollIntoView({behavior:"smooth"});
+
+// ✅ AUTO SCROLL TO QR
+setTimeout(()=>{
+  payBox.scrollIntoView({behavior:"smooth",block:"center"});
+},200);
+
 };
 });
 
-/* PROOF */
 proof.onchange=()=>{
-const f=proof.files[0];
-if(!f)return;
+const f=proof.files[0]; if(!f)return;
 const r=new FileReader();
-r.onload=e=>{
-preview.src=e.target.result;
-preview.style.display="block";
-submitBtn.disabled=false;
-};
+r.onload=e=>{preview.src=e.target.result;preview.style.display="block";submitBtn.disabled=false;};
 r.readAsDataURL(f);
 };
 
 submitBtn.onclick=()=>{
+successSound.play();
 localStorage.setItem(orderId,JSON.stringify({plan,price,code,time:new Date().toLocaleString()}));
-window.open(`https://t.me/surajxmodz?text=ORDER%20${orderId}%0APLAN:${plan}%0APRICE:${price}%0ACODE:${code}`,"_blank");
+loadHistory();
+contactAdmin();
 };
 
-/* SETTINGS */
-function toggleSettings(){
-settingsBox.style.display=settingsBox.style.display==="block"?"none":"block";
+function contactAdmin(){
+if(!orderId)return window.open("https://t.me/surajxmodz","_blank");
+const msg=`ORDER ID: ${orderId}\nPLAN: ${plan}\nPRICE: ${price}\nCODE: ${code}`;
+window.open(`https://t.me/surajxmodz?text=${encodeURIComponent(msg)}`,"_blank");
 }
-neonPicker.oninput=e=>{
-document.documentElement.style.setProperty('--neon',e.target.value);
-localStorage.neon=e.target.value;
+
+function loadHistory(){
+historyList.innerHTML="";
+Object.keys(localStorage).forEach(k=>{
+if(k.startsWith("GX-")){
+const o=JSON.parse(localStorage.getItem(k));
+historyList.innerHTML+=`<div class="historyItem"><b>${o.plan}</b> — ${o.price}<br>🆔 ${k}<br>🕒 ${o.time}<br><button onclick="reContact('${k}')" class="btn outline">CONTACT AGAIN</button></div>`;
+}});
 }
-accentPicker.oninput=e=>{
-document.documentElement.style.setProperty('--accent',e.target.value);
-localStorage.accent=e.target.value;
+function reContact(id){
+const o=JSON.parse(localStorage.getItem(id));
+const msg=`ORDER ID: ${id}\nPLAN: ${o.plan}\nPRICE: ${o.price}\nCODE: ${o.code}`;
+window.open(`https://t.me/surajxmodz?text=${encodeURIComponent(msg)}`,"_blank");
 }
-function clearHistory(){
-localStorage.clear();
-alert("History cleared");
+function toggleHistory(){historyBox.style.display=historyBox.style.display==="block"?"none":"block";loadHistory();}
+
+function exportOrders(){
+let csv="OrderID,Plan,Price,Code,Time\n";
+Object.keys(localStorage).forEach(k=>{
+if(k.startsWith("GX-")){
+const o=JSON.parse(localStorage.getItem(k));
+csv+=`${k},${o.plan},${o.price},${o.code},${o.time}\n`;
+}});
+const blob=new Blob([csv],{type:"text/csv"});
+const a=document.createElement("a");
+a.href=URL.createObjectURL(blob);
+a.download="orders.csv";
+a.click();
 }
+
+function toggleSettings(){settingsBox.style.display=settingsBox.style.display==="block"?"none":"block";}
+neonPicker.oninput=e=>{document.documentElement.style.setProperty('--neon',e.target.value);loadParticles();}
+accentPicker.oninput=e=>{document.documentElement.style.setProperty('--accent',e.target.value);loadParticles();}
+function clearHistory(){localStorage.clear();historyList.innerHTML="";alert("History cleared");}
 </script>
 
 </body>
