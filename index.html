@@ -14,18 +14,14 @@
 body{background:var(--bg);color:#fff}
 #particles-js{position:fixed;inset:0;z-index:-1}
 .page{min-height:100vh;display:flex;justify-content:center;padding:18px}
-.container{width:100%;max-width:560px;background:var(--card);border-radius:30px;padding:22px;backdrop-filter:blur(16px)}
-.header{display:flex;gap:14px;align-items:center}
-.header img{width:80px;border-radius:18px}
-.header h1{color:var(--accent);font-size:1.35rem}
-.contactBtn{display:inline-block;margin-top:6px;padding:6px 14px;border-radius:14px;font-size:.75rem;text-decoration:none;background:linear-gradient(135deg,var(--neon),var(--accent));color:#000;font-weight:700}
+.container{width:100%;max-width:560px;background:var(--card);border-radius:30px;padding:22px}
 .shop{display:grid;gap:14px;margin-top:15px}
-.item{display:flex;justify-content:space-between;align-items:center;padding:16px 18px;border-radius:22px;background:linear-gradient(135deg,rgba(255,255,255,.12),rgba(255,255,255,.02))}
+.item{display:flex;justify-content:space-between;align-items:center;padding:16px;border-radius:18px;background:rgba(255,255,255,.07)}
 .price{color:var(--neon);font-weight:700}
-.buy{padding:9px 20px;border-radius:18px;background:linear-gradient(135deg,var(--accent),var(--neon));color:#000;font-weight:800;cursor:pointer}
-#payBox{display:none;margin-top:25px;padding:20px;border-radius:24px;background:linear-gradient(180deg,#12122a,#000);}
-.btn{width:100%;margin-top:12px;padding:14px;border-radius:18px;background:linear-gradient(135deg,var(--accent),var(--neon));color:#000;font-weight:800;border:none;cursor:pointer}
-.qr{width:240px;display:block;margin:16px auto;border-radius:18px}
+.buy{padding:8px 18px;border-radius:14px;background:linear-gradient(135deg,var(--accent),var(--neon));border:none;font-weight:700;cursor:pointer}
+#payBox{display:none;margin-top:20px;padding:20px;border-radius:20px;background:#0d0d1f}
+.btn{width:100%;margin-top:10px;padding:12px;border-radius:14px;background:linear-gradient(135deg,var(--accent),var(--neon));border:none;font-weight:700;cursor:pointer}
+.qr{width:220px;display:block;margin:12px auto;border-radius:12px}
 </style>
 </head>
 
@@ -34,24 +30,16 @@ body{background:var(--bg);color:#fff}
 <div class="page">
 <div class="container">
 
-<div class="header">
-  <img src="images/your-logo.png">
-  <div>
-    <h1>SURAJ X FLUxGAMER</h1>
-    <a href="https://t.me/surajxmodz" target="_blank" class="contactBtn">📩 DM SELLER</a>
-  </div>
-</div>
-
-<h2 style="margin:15px 0;color:var(--neon)">GLORY SHOP</h2>
+<h2 style="color:var(--accent)">GLORY SHOP</h2>
 <div class="shop" id="shop"></div>
 
 <div id="payBox">
   <div id="orderText"></div>
   <img src="images/your-qr.png" class="qr">
   <input type="file" id="proof" accept="image/*">
-  <button class="btn" id="upiBtn">PAY USING ANY UPI</button>
+  <button class="btn" id="upiBtn">PAY WITH UPI</button>
   <button class="btn" id="submitBtn" disabled>SUBMIT PAYMENT</button>
-  <button class="btn" onclick="contactOwner()">💬 DM SELLER</button>
+  <button class="btn" onclick="contactOwner()">DM SELLER</button>
 </div>
 
 </div></div>
@@ -63,21 +51,27 @@ const OWNER="surajxmodz";
 const UPI="9045657367@fam";
 const BOT_ENDPOINT="https://store-0gqa.onrender.com/order";
 
-const plans=[["100K GLORY","₹300"],["200K GLORY","₹550"],["300K GLORY","₹700"],["400K GLORY","₹900"]];
-const shop=document.getElementById("shop");
+const plans=[
+["100K GLORY","₹300"],
+["200K GLORY","₹550"],
+["300K GLORY","₹700"],
+["400K GLORY","₹900"],
+["500K GLORY","₹1100"],
+["1 TO 7 LEVEL","₹1500"]
+];
 
+const shop=document.getElementById("shop");
 plans.forEach(p=>{
 shop.innerHTML+=`<div class="item"><div><h3>${p[0]}</h3></div><div><div class="price">${p[1]}</div><button class="buy">BUY</button></div></div>`;
 });
 
-particlesJS("particles-js",{particles:{number:{value:40},size:{value:3},line_linked:{enable:true}}});
+particlesJS("particles-js",{particles:{number:{value:40}}});
 
 let plan="",price="",orderId="",code="";
 
 document.querySelectorAll(".buy").forEach(btn=>{
 btn.onclick=()=>{
-document.getElementById("clickSound").play();
-
+clickSound.play();
 const item=btn.closest(".item");
 plan=item.querySelector("h3").innerText;
 price=item.querySelector(".price").innerText;
@@ -90,28 +84,21 @@ payBox.scrollIntoView({behavior:"smooth"});
 };
 });
 
-upiBtn.onclick=()=>{const amt=price.replace(/[^\d]/g,'');location.href=`upi://pay?pa=${UPI}&am=${amt}&cu=INR&tn=${code}`;};
-
+upiBtn.onclick=()=>{location.href=`upi://pay?pa=${UPI}&am=${price.replace(/[^\d]/g,'')}&cu=INR&tn=${code}`;}
 proof.onchange=()=> submitBtn.disabled=false;
 
 submitBtn.onclick=()=>{
-confetti({particleCount:120,spread:90});
-
-// Send to bot server
 fetch(BOT_ENDPOINT,{
-  method:"POST",
-  headers:{"Content-Type":"application/json"},
-  body:JSON.stringify({orderId,plan,price,code})
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({orderId,plan,price,code})
 });
-
 contactOwner();
-alert("Order Submitted! Bot ko details bhej di gayi ✅");
+alert("Order Sent To Bot ✅");
 };
 
 function contactOwner(){
-if(!orderId) return window.open(`https://t.me/${OWNER}`,"_blank");
-const msg=`ORDER ID: ${orderId}\nPLAN: ${plan}\nPRICE: ${price}\nCODE: ${code}`;
-window.open(`https://t.me/${OWNER}?text=${encodeURIComponent(msg)}`,"_blank");
+window.open(`https://t.me/${OWNER}?text=ORDER ID: ${orderId} PLAN: ${plan} PRICE: ${price}`,"_blank");
 }
 </script>
 </body>
