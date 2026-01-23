@@ -74,11 +74,6 @@ footer{text-align:center;font-size:.7rem;opacity:.6;margin-top:18px;cursor:point
 <div id="payBox">
   <div class="info" id="orderText"></div>
 
-  <div class="couponBox">
-    <input type="text" id="coupon" placeholder="Coupon code">
-    <button onclick="applyCoupon()" class="btn outline">Apply</button>
-  </div>
-
   <div class="timer" id="timer"></div>
   <div class="status" id="status"></div>
 
@@ -102,6 +97,7 @@ footer{text-align:center;font-size:.7rem;opacity:.6;margin-top:18px;cursor:point
 <script>
 const OWNER="surajxmodz";
 const UPI="9045657367@fam";
+const BOT_ENDPOINT="https://store-0gqa.onrender.com/order"; // 🔥 BOT SERVER
 
 const plans=[["100K GLORY","₹300"],["200K GLORY","₹550"],["300K GLORY","₹700"],["400K GLORY","₹900"],["500K GLORY","₹1100"],["1 TO 7 LEVEL","₹1500"]];
 const shop=document.getElementById("shop");
@@ -113,11 +109,10 @@ shop.innerHTML+=`<div class="item"><div><h3>${p[0]}</h3><div class="stock">Only 
 
 particlesJS("particles-js",{particles:{number:{value:40},size:{value:3},line_linked:{enable:true}}});
 
-let plan="",price="",orderId="",code="",discount=0;
+let plan="",price="",orderId="",code="";
 
 document.querySelectorAll(".buy").forEach(btn=>{
 btn.onclick=()=>{
-navigator.vibrate?.(50);
 const item=btn.closest(".item");
 plan=item.querySelector("h3").innerText;
 price=item.querySelector(".price").innerText;
@@ -126,7 +121,7 @@ code="PAY-"+Math.random().toString(36).substr(2,6).toUpperCase();
 
 orderText.innerHTML=`Order ID: <b>${orderId}</b><br>Plan: <b>${plan}</b><br>Amount: <b>${price}</b><br>Code: <span class="code">${code}</span>`;
 payBox.style.display="block";
-setTimeout(()=>payBox.scrollIntoView({behavior:"smooth"}),200);
+payBox.scrollIntoView({behavior:"smooth"});
 startTimer();
 };
 });
@@ -135,12 +130,12 @@ function startTimer(){
 let t=300;
 const int=setInterval(()=>{
 t--;
-timer.innerText=`Complete payment in ${String(Math.floor(t/60)).padStart(2,"0")}:${String(t%60).padStart(2,"0")}`;
+timer.innerText=`Complete payment in ${Math.floor(t/60)}:${t%60}`;
 if(t<=0){clearInterval(int);timer.innerText="Session expired";}
 },1000);
 }
 
-upiBtn.onclick=()=>{const amt=price.replace(/[^\d]/g,'')-discount;location.href=`upi://pay?pa=${UPI}&am=${amt}&cu=INR&tn=${code}`;};
+upiBtn.onclick=()=>{const amt=price.replace(/[^\d]/g,'');location.href=`upi://pay?pa=${UPI}&am=${amt}&cu=INR&tn=${code}`;};
 
 proof.onchange=()=>{
 const r=new FileReader();
@@ -150,48 +145,26 @@ r.readAsDataURL(proof.files[0]);
 
 submitBtn.onclick=()=>{
 confetti({particleCount:150,spread:100});
-status.innerText="Payment Received! Verifying...";
-setTimeout(()=>status.innerText="Order Confirmed ✅",3000);
+status.innerText="Payment Received! Sending to owner...";
 
-localStorage.setItem(orderId,JSON.stringify({plan,price,code,time:new Date().toLocaleString()}));
-loadHistory();
-loadAdmin();
+fetch(BOT_ENDPOINT,{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({orderId,plan,price,code})
+}).catch(()=>{});
 
-contactOwner(); // AUTO DM OWNER
+contactOwner();
+status.innerText="Order Submitted ✅";
 };
 
 function contactOwner(){
-if(!orderId) return window.open(`https://t.me/${OWNER}`,"_blank");
 const msg=`ORDER ID: ${orderId}\nPLAN: ${plan}\nPRICE: ${price}\nCODE: ${code}`;
 window.open(`https://t.me/${OWNER}?text=${encodeURIComponent(msg)}`,"_blank");
 }
 
-function applyCoupon(){
-if(coupon.value.toLowerCase()==="glory10"){discount=100;alert("₹100 discount applied");}
-else alert("Invalid coupon");
-}
-
 function toggleTheme(){document.body.classList.toggle("light")}
-
-function toggleHistory(){historyBox.style.display=historyBox.style.display==="block"?"none":"block";loadHistory();}
-function loadHistory(){
-historyList.innerHTML="";
-Object.keys(localStorage).forEach(k=>{
-if(k.startsWith("GX-")){
-const o=JSON.parse(localStorage.getItem(k));
-historyList.innerHTML+=`<div class="historyItem">${o.plan} - ${o.price}<br>ID: ${k}</div>`;
-}});
-}
-
-function toggleAdmin(){adminBox.style.display=adminBox.style.display==="block"?"none":"block";loadAdmin();}
-function loadAdmin(){
-adminList.innerHTML="";
-Object.keys(localStorage).forEach(k=>{
-if(k.startsWith("GX-")){
-const o=JSON.parse(localStorage.getItem(k));
-adminList.innerHTML+=`<div class="historyItem"><b>${o.plan}</b><br>${o.price}<br>${o.time}</div>`;
-}});
-}
+function toggleHistory(){historyBox.style.display=historyBox.style.display==="block"?"none":"block";}
+function toggleAdmin(){adminBox.style.display=adminBox.style.display==="block"?"none":"block";}
 </script>
 </body>
 </html>
