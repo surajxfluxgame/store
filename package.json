@@ -1,12 +1,9 @@
 {
-  "name": "payment-access-bot",
+  "name": "telegram-shop-bot",
   "version": "1.0.0",
-  "description": "Telegram Payment Bot",
   "main": "server.js",
-  "scripts": {
-    "start": "node server.js"
-  },
   "dependencies": {
-    "node-telegram-bot-api": "^0.66.0"
+    "express": "^4.18.2",
+    "node-telegram-bot-api": "^0.61.0"
   }
 }
