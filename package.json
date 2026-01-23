@@ -1,7 +1,7 @@
 {
-  "name": "telegram-order-bot",
+  "name": "glory-shop-bot",
   "version": "1.0.0",
-  "description": "Telegram bot server for receiving shop orders",
+  "description": "Telegram Bot for Glory Shop Orders",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
