@@ -5,46 +5,58 @@ const TelegramBot = require("node-telegram-bot-api");
 const app = express();
 app.use(bodyParser.json());
 
-// ENV VARIABLES
+// ENV VARIABLES (Render me add karna hota hai)
 const TOKEN = process.env.BOT_TOKEN;
 const ADMIN_ID = process.env.ADMIN_ID;
 
-// Create bot WITHOUT polling (important for Render)
-const bot = new TelegramBot(TOKEN);
+if (!TOKEN || !ADMIN_ID) {
+  console.error("❌ BOT_TOKEN ya ADMIN_ID missing hai");
+  process.exit(1);
+}
 
-// Home route (Render ko batane ke liye server alive hai)
-app.get("/", (req, res) => {
-  res.send("Bot server is running ✅");
+// Bot start (Polling mode for Render)
+const bot = new TelegramBot(TOKEN, { polling: true });
+
+bot.on("polling_error", (err) => console.log(err));
+
+// Test command
+bot.onText(/\/start/, (msg) => {
+  bot.sendMessage(msg.chat.id, "🤖 Bot is live and working!");
 });
 
-// Order route from website
+// WEBSITE SE ORDER RECEIVE KARNE KA ROUTE
 app.post("/order", async (req, res) => {
-  console.log("ORDER RECEIVED:", req.body);
+  try {
+    const { orderId, plan, price, code } = req.body;
 
-  const { orderId, plan, price, code } = req.body;
+    if (!orderId || !plan || !price || !code) {
+      return res.status(400).send("Missing order data");
+    }
 
-  const msg = `
-🛒 NEW ORDER RECEIVED
+    const message = `
+🛒 *NEW ORDER RECEIVED*
 
 🆔 Order ID: ${orderId}
 📦 Plan: ${plan}
 💰 Price: ${price}
 🔑 Code: ${code}
-  `;
+    `;
 
-  try {
-    await bot.sendMessage(ADMIN_ID, msg);
-    console.log("Message sent to Telegram");
+    await bot.sendMessage(ADMIN_ID, message, { parse_mode: "Markdown" });
+
+    console.log("✅ Order sent to Telegram:", orderId);
     res.sendStatus(200);
   } catch (err) {
-    console.log("Telegram Error:", err);
+    console.error("❌ Error sending order:", err);
     res.sendStatus(500);
   }
 });
 
-// 🔥 VERY IMPORTANT FOR RENDER
-const PORT = process.env.PORT || 10000;
-
-app.listen(PORT, "0.0.0.0", () => {
-  console.log(`Server running on port ${PORT}`);
+// Home route (browser me open karne pe error na aaye)
+app.get("/", (req, res) => {
+  res.send("✅ Bot Server is Running");
 });
+
+// Render ke liye port
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log("🚀 Server running on port " + PORT));
