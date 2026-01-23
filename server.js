@@ -5,57 +5,46 @@ const TelegramBot = require("node-telegram-bot-api");
 const app = express();
 app.use(bodyParser.json());
 
-// ===== ENV VARIABLES =====
+// ENV VARIABLES
 const TOKEN = process.env.BOT_TOKEN;
 const ADMIN_ID = process.env.ADMIN_ID;
 
-// Check env vars
-if (!TOKEN || !ADMIN_ID) {
-  console.error("❌ BOT_TOKEN or ADMIN_ID missing");
-  process.exit(1);
-}
+// Create bot WITHOUT polling (important for Render)
+const bot = new TelegramBot(TOKEN);
 
-// ===== TELEGRAM BOT START =====
-const bot = new TelegramBot(TOKEN, { polling: true });
-
-bot.on("polling_error", (err) => console.log("Polling error:", err.message));
-
-bot.onText(/\/start/, (msg) => {
-  bot.sendMessage(msg.chat.id, "🤖 Bot is LIVE and ready to receive orders!");
-});
-
-// ===== HEALTH ROUTE FOR RENDER =====
+// Home route (Render ko batane ke liye server alive hai)
 app.get("/", (req, res) => {
   res.send("Bot server is running ✅");
 });
 
-// ===== ORDER ROUTE FROM WEBSITE =====
+// Order route from website
 app.post("/order", async (req, res) => {
-  try {
-    const { orderId, plan, price, code } = req.body;
+  console.log("ORDER RECEIVED:", req.body);
 
-    if (!orderId || !plan || !price || !code) {
-      return res.status(400).send("Missing order data");
-    }
+  const { orderId, plan, price, code } = req.body;
 
-    const message = `
-🛒 <b>NEW ORDER RECEIVED</b>
+  const msg = `
+🛒 NEW ORDER RECEIVED
 
 🆔 Order ID: ${orderId}
 📦 Plan: ${plan}
 💰 Price: ${price}
 🔑 Code: ${code}
-    `;
+  `;
 
-    await bot.sendMessage(ADMIN_ID, message, { parse_mode: "HTML" });
-
-    res.status(200).send("Order sent to Telegram");
+  try {
+    await bot.sendMessage(ADMIN_ID, msg);
+    console.log("Message sent to Telegram");
+    res.sendStatus(200);
   } catch (err) {
-    console.error("❌ Error sending order:", err.message);
-    res.status(500).send("Server error");
+    console.log("Telegram Error:", err);
+    res.sendStatus(500);
   }
 });
 
-// ===== START SERVER (RENDER PORT FIX) =====
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log("🚀 Server running on port " + PORT));
+// 🔥 VERY IMPORTANT FOR RENDER
+const PORT = process.env.PORT || 10000;
+
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`Server running on port ${PORT}`);
+});
